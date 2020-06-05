@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
+  <asmv1:assemblyIdentity name="Shipping System.exe" version="0.0.0.2" publicKeyToken="e5031c4e9d7384d0" language="neutral" processorArchitecture="msil" type="win32" />
+  <description asmv2:iconFile="blue_truck_256_hvv_icon.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
+  <application />
+  <entryPoint>
+    <assemblyIdentity name="Shipping System" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+    <commandLine file="Shipping System.exe" parameters="" />
+  </entryPoint>
+  <trustInfo>
+    <security>
+      <applicationRequestMinimum>
+        <PermissionSet Unrestricted="true" ID="Custom" SameSite="site" />
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+      </applicationRequestMinimum>
+      <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+        <!--
+          UAC Manifest Options
+          If you want to change the Windows User Account Control level replace the 
+          requestedExecutionLevel node with one of the following.
+
+        <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
+        <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+        <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
+
+         If you want to utilize File and Registry Virtualization for backward 
+         compatibility then delete the requestedExecutionLevel node.
+    -->
+        <requestedExecutionLevel level="asInvoker" uiAccess="false" />
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+  <dependency>
+    <dependentOS>
+      <osVersionInfo>
+        <os majorVersion="5" minorVersion="1" buildNumber="2600" servicePackMajor="0" />
+      </osVersionInfo>
+    </dependentOS>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="4.0.30319.0" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Gma.QrCodeNet.Encoding.dll" size="108032">
+      <assemblyIdentity name="Gma.QrCodeNet.Encoding" version="0.4.0.0" publicKeyToken="E8A75D24B142BE49" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>nl9hGUpERqmJbv0eVbK99wTeDXpDnVLkm09vpFUh3jE=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="itextsharp.dll" size="4091904">
+      <assemblyIdentity name="itextsharp" version="5.5.6.0" publicKeyToken="8354AE6D2174DDCA" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>b/w2BH7bWnwbPZ5COz5ePy2dIMNipwmbyx9XkCwbEBA=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Microsoft.VisualStudio.Data.Core.dll" size="29736">
+      <assemblyIdentity name="Microsoft.VisualStudio.Data.Core" version="9.0.0.0" publicKeyToken="B03F5F7F11D50A3A" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>dzgRxVFPyNh7nznjbvVx41OXMRMHK+JPwtHk78Rx4Rs=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ProgressBars.Basic.dll" size="14336">
+      <assemblyIdentity name="ProgressBars.Basic" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>Pp97fLeGgptNWOrltUoiQ4wl99qoJ9uGwbztY/2uix0=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Shipping System.exe" size="7165904">
+      <assemblyIdentity name="Shipping System" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>+Sj7x11Aqxc+C9UMRgDoSY9jUfiEkGuiqiGBFOwHQKM=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="VerticalProgressBar.dll" size="24576">
+      <assemblyIdentity name="VerticalProgressBar" version="1.0.1734.32024" language="neutral" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>hZ/UKmDrXhl8purjVPsPwANSe3BG86aanCunetjg644=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <file name="Antrepo-Cargo-Boxes-Shipping-1.ico" size="367958">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>co5IYK75u6aZC+iHfuwEVERTvB9BMZqc442rpKl2734=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="blue_truck_256_hvv_icon.ico" size="16958">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>GTBVaxcbmXTpL60dhUr9hzu+RSyaIYKr5m2sx2Aun+s=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Picture2.ico" size="212318">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>ina2gAe02qqJPIwGsUGfOrgaVWJc7bSHHHcswTLHsks=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Shipping System.exe.config" size="161">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>+K0Xw31ERSGzkFzL116my249J2OxbrVrLhqkJ0Fz5hQ=</dsig:DigestValue>
+    </hash>
+  </file>
+<publisherIdentity name="CN=MEDLINE-NT\ctorres" issuerKeyHash="2e36e6a64bec9b800ef2766950b47e59eb852ecd" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>68wv8mshqhXgOzDCAohsEL9T8yde8wMCQ6mNd3LdhOQ=</DigestValue></Reference></SignedInfo><SignatureValue>DP1LZY+WFMrjq06iYuE3/f5moq3TIGFM/JiRKwuhNUdpM816LWUXkMmzJ2uhYsUeqZTxnS9zLvLo9RVgVSThrZiCKioTHHhFMuogBotLSV7Z1KB4BIWr1kO8E35M/av9MefF9ge2oeBpd5MRVDCAeaGqcEtHonpKQUsYX26prVo=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>3vgjqoVzmUp9Zkl6/NaHQ+UCjQdUcpBOuXllZn7jRG/UuTwS/1GahnNt5k4Ar4DBUnFcQqBBaeiPRIYk/aGbtvhok3T3MHmUEiUSgiMFpGaAAgv0aneTVYCtFpaK3T9atVn4ltcA+uBFWKMp5f6mp9O7Ga6Qj9yDzzA90nSDH50=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="e484dd72778da9430203f35e27f353bf106c8802c2303be015aa216bf22fcceb" Description="" Url=""><as:assemblyIdentity name="Shipping System.exe" version="0.0.0.2" publicKeyToken="e5031c4e9d7384d0" language="neutral" processorArchitecture="msil" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=MEDLINE-NT\ctorres</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>21dt1Dfo5iZs5kOCFKZvpiXQBYmdzR5b4iUbrOJ8h2o=</DigestValue></Reference></SignedInfo><SignatureValue>LmZ6insraZTHbJabKJHxyLTZnH4sq+Gb+6hjI7L3vBmyQWQ7y47rfYJiMGRX+gxd2AT58lWfF+GinyXiLgTTjYTwvmapRbhv+btABgtmCRaJBkHk8OCWINT4VGHHx/W34u8OsPoHn79sbZImdb5H6nKn9Ug+kgcyfo60cpS0w8A=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>3vgjqoVzmUp9Zkl6/NaHQ+UCjQdUcpBOuXllZn7jRG/UuTwS/1GahnNt5k4Ar4DBUnFcQqBBaeiPRIYk/aGbtvhok3T3MHmUEiUSgiMFpGaAAgv0aneTVYCtFpaK3T9atVn4ltcA+uBFWKMp5f6mp9O7Ga6Qj9yDzzA90nSDH50=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIIB4TCCAUqgAwIBAgIQelW3DQq6m4RPnLnPDKXuJTANBgkqhkiG9w0BAQsFADAvMS0wKwYDVQQDHiQATQBFAEQATABJAE4ARQAtAE4AVABcAGMAdABvAHIAcgBlAHMwHhcNMTkwODEzMTgxODQ4WhcNMjAwODEzMDAxODQ4WjAvMS0wKwYDVQQDHiQATQBFAEQATABJAE4ARQAtAE4AVABcAGMAdABvAHIAcgBlAHMwgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAN74I6qFc5lKfWZJevzWh0PlAo0HVHKQTrl5ZWZ+40Rv1Lk8Ev9RmoZzbeZOAK+AwVJxXEKgQWnoj0SGJP2hm7b4aJN09zB5lBIlEoIjBaRmgAIL9Gp3k1WArRaWit0/WrVZ+JbXAPrgRVijKeX+pqfTuxmukI/cg88wPdJ0gx+dAgMBAAEwDQYJKoZIhvcNAQELBQADgYEACnkUCaiSj6QIDhRCiO1EmdFu4qQ+hVQanMW+pFhTR5UKQF/vE/ZpexW7/a9w65i2/7ownkxM0Fw1j+GSnVfgM1BOQUdPhjnV+nkqiuLP4/sVtu1bdXCgIAe5y2OCeR9Ijq96Yn6vXByPEn6oYfgyEHwx6oEPG1kWKSrCcp1hUeE=</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>

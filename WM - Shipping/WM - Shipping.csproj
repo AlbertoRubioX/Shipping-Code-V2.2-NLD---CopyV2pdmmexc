@@ -1,0 +1,581 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C7CBD37C-ADFC-4F29-807D-536C13D5BAAF}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WindowsFormsApplication1</RootNamespace>
+    <AssemblyName>Shipping System</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>C:\code\Shipping Code V2.2 NLD - Copy\Installer\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>3</ApplicationRevision>
+    <ApplicationVersion>0.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>blue_truck_256_hvv_icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>28C8F0D5EF987AD706C15EE893351077B171DC72</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>WM - Shipping_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Gma.QrCodeNet.Encoding">
+      <HintPath>..\QrCode.Net 0.4 Pre-Release\Gma.QrCodeNet.Encoder\Gma.QrCodeNet.Encoding.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.DAO">
+      <HintPath>..\..\..\..\..\code\Setup Scanning System\Setup picking confirmation\obj\x86\Debug\Interop.DAO.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.Office">
+      <HintPath>..\..\..\..\..\code\Setup Scanning System\Setup picking confirmation\obj\x86\Debug\Interop.Office.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.6.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Word, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\Windows\assembly\GAC_MSIL\Microsoft.Office.Interop.Word\15.0.0.0__71e9bce111e9429c\Microsoft.Office.Interop.Word.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Microsoft.VisualStudio.Data.Core, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Windows\assembly\GAC_MSIL\Microsoft.VisualStudio.Data.Core\9.0.0.0__b03f5f7f11d50a3a\Microsoft.VisualStudio.Data.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="OFFICE, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\Windows\assembly\GAC_MSIL\office\15.0.0.0__71e9bce111e9429c\OFFICE.DLL</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="ProgressBars.Basic">
+      <HintPath>..\..\Shipping Code\ProgressBars.Basic.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="VerticalProgressBar">
+      <HintPath>..\..\Shipping Code\VerticalProgressBar.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="About.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="About.Designer.cs">
+      <DependentUpon>About.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ArchivoExcel.cs" />
+    <Compile Include="buscar_lote.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="buscar_lote.Designer.cs">
+      <DependentUpon>buscar_lote.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CloseBoxTrailer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CloseBoxTrailer.Designer.cs">
+      <DependentUpon>CloseBoxTrailer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Correccion_tarimas_del_lote.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Correccion_tarimas_del_lote.Designer.cs">
+      <DependentUpon>Correccion_tarimas_del_lote.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CrearCargaFedex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CrearCargaFedex.Designer.cs">
+      <DependentUpon>CrearCargaFedex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="crear_carga.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="crear_carga.Designer.cs">
+      <DependentUpon>crear_carga.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Datos.cs" />
+    <Compile Include="Detener_Lote.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Detener_Lote.Designer.cs">
+      <DependentUpon>Detener_Lote.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Fedex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fedex.Designer.cs">
+      <DependentUpon>Fedex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GlobalVar.cs" />
+    <Compile Include="Grafico_Por_Persona.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Grafico_Por_Persona.Designer.cs">
+      <DependentUpon>Grafico_Por_Persona.cs</DependentUpon>
+    </Compile>
+    <Compile Include="M2_MapaDetalle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="M2_MapaDetalle.Designer.cs">
+      <DependentUpon>M2_MapaDetalle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="M3_Map.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="M3_Map.Designer.cs">
+      <DependentUpon>M3_Map.cs</DependentUpon>
+    </Compile>
+    <Compile Include="M2_Validation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="M2_Validation.Designer.cs">
+      <DependentUpon>M2_Validation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LogIn.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LogIn.Designer.cs">
+      <DependentUpon>LogIn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="M1_Labeling.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="M1_Labeling.Designer.cs">
+      <DependentUpon>M1_Labeling.cs</DependentUpon>
+    </Compile>
+    <Compile Include="M2_Consolidation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="M2_Consolidation.Designer.cs">
+      <DependentUpon>M2_Consolidation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="M4_DetallePiso.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="M4_DetallePiso.Designer.cs">
+      <DependentUpon>M4_DetallePiso.cs</DependentUpon>
+    </Compile>
+    <Compile Include="M4_DockDetail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="M4_DockDetail.Designer.cs">
+      <DependentUpon>M4_DockDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="M4_Layout.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="M4_Layout.Designer.cs">
+      <DependentUpon>M4_Layout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="M4_LayoutMXC.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="M4_LayoutMXC.Designer.cs">
+      <DependentUpon>M4_LayoutMXC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Menu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menu.Designer.cs">
+      <DependentUpon>Menu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modificar_Localizacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modificar_Localizacion.Designer.cs">
+      <DependentUpon>Modificar_Localizacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="quiebre.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="quiebre.Designer.cs">
+      <DependentUpon>quiebre.cs</DependentUpon>
+    </Compile>
+    <Compile Include="regresar_lote.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="regresar_lote.Designer.cs">
+      <DependentUpon>regresar_lote.cs</DependentUpon>
+    </Compile>
+    <Compile Include="remover_lote.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="remover_lote.Designer.cs">
+      <DependentUpon>remover_lote.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReporteEmbarcado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReporteEmbarcado.Designer.cs">
+      <DependentUpon>ReporteEmbarcado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReporteFedex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReporteFedex.Designer.cs">
+      <DependentUpon>ReporteFedex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReporteStatus.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReporteStatus.Designer.cs">
+      <DependentUpon>ReporteStatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Retrabajar carga.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Retrabajar carga.Designer.cs">
+      <DependentUpon>Retrabajar carga.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UploadExcel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UploadExcel.Designer.cs">
+      <DependentUpon>UploadExcel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Usuarios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Usuarios.Designer.cs">
+      <DependentUpon>Usuarios.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Verificacion_de_caja.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Verificacion_de_caja.Designer.cs">
+      <DependentUpon>Verificacion_de_caja.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="About.resx">
+      <DependentUpon>About.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="buscar_lote.resx">
+      <DependentUpon>buscar_lote.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CloseBoxTrailer.resx">
+      <DependentUpon>CloseBoxTrailer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Correccion_tarimas_del_lote.resx">
+      <DependentUpon>Correccion_tarimas_del_lote.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CrearCargaFedex.resx">
+      <DependentUpon>CrearCargaFedex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="crear_carga.resx">
+      <DependentUpon>crear_carga.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Detener_Lote.resx">
+      <DependentUpon>Detener_Lote.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fedex.resx">
+      <DependentUpon>Fedex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Grafico_Por_Persona.resx">
+      <DependentUpon>Grafico_Por_Persona.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="M2_MapaDetalle.resx">
+      <DependentUpon>M2_MapaDetalle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="M3_Map.resx">
+      <DependentUpon>M3_Map.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="M2_Validation.resx">
+      <DependentUpon>M2_Validation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LogIn.resx">
+      <DependentUpon>LogIn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="M1_Labeling.resx">
+      <DependentUpon>M1_Labeling.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="M2_Consolidation.resx">
+      <DependentUpon>M2_Consolidation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="M4_DetallePiso.resx">
+      <DependentUpon>M4_DetallePiso.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="M4_DockDetail.resx">
+      <DependentUpon>M4_DockDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="M4_Layout.resx">
+      <DependentUpon>M4_Layout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="M4_LayoutMXC.resx">
+      <DependentUpon>M4_LayoutMXC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menu.resx">
+      <DependentUpon>Menu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modificar_Localizacion.resx">
+      <DependentUpon>Modificar_Localizacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="quiebre.resx">
+      <DependentUpon>quiebre.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="regresar_lote.resx">
+      <DependentUpon>regresar_lote.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="remover_lote.resx">
+      <DependentUpon>remover_lote.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteEmbarcado.resx">
+      <DependentUpon>ReporteEmbarcado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteFedex.resx">
+      <DependentUpon>ReporteFedex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteStatus.resx">
+      <DependentUpon>ReporteStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Retrabajar carga.resx">
+      <DependentUpon>Retrabajar carga.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UploadExcel.resx">
+      <DependentUpon>UploadExcel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Usuarios.resx">
+      <DependentUpon>Usuarios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Verificacion_de_caja.resx">
+      <DependentUpon>Verificacion_de_caja.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="WM - Shipping_TemporaryKey.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logingback.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\background1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\background3.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Hopstarter-Sleek-Xp-Basic-Ok.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>7</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rojo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rojo2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rojo3.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\amarillo3.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\verde3.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rojo_1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\amarillo_1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\verde_1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\carretilla-elevadoras-y-montacargas-imagen-animada-0011.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Antrepo-Cargo-Boxes-Shipping-1.ico" />
+    <Content Include="blue_truck_256_hvv_icon.ico" />
+    <Content Include="Picture2.ico" />
+    <None Include="Resources\caja.gif" />
+    <None Include="Resources\about2.png" />
+    <None Include="Resources\about_back.png" />
+    <None Include="Resources\back_screen2.png" />
+    <None Include="Resources\back_screen1.png" />
+    <None Include="Resources\login_screen4.png" />
+    <None Include="Resources\login_screen3.png" />
+    <None Include="Resources\login_screen2.png" />
+    <None Include="Resources\login_screen.png" />
+    <None Include="Resources\lorry.ico" />
+    <None Include="Resources\group_user16_h.ico" />
+    <None Include="Resources\Cajas-Correos-84236.gif" />
+    <None Include="caja.jpg" />
+    <None Include="Resources\wrench.ico" />
+    <None Include="Resources\lorry_add.ico" />
+    <None Include="Resources\16 %28Arrow first%29.ico" />
+    <None Include="Resources\16 %28Paste%29.ico" />
+    <None Include="Resources\add.ico" />
+    <None Include="Resources\tick.ico" />
+    <None Include="Resources\arrow_refresh.ico" />
+    <None Include="Resources\reload3.ico" />
+    <None Include="Resources\accept.ico" />
+    <None Include="Resources\zoom.ico" />
+    <None Include="Resources\arrowright_green16.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
