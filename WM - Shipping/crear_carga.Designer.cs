@@ -52,7 +52,7 @@
             this.label1.Location = new System.Drawing.Point(85, 57);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(80, 24);
+            this.label1.Size = new System.Drawing.Size(80, 22);
             this.label1.TabIndex = 0;
             this.label1.Text = "# Caja: ";
             // 
@@ -63,7 +63,7 @@
             this.txtcaja1.Location = new System.Drawing.Point(192, 52);
             this.txtcaja1.Margin = new System.Windows.Forms.Padding(4);
             this.txtcaja1.Name = "txtcaja1";
-            this.txtcaja1.Size = new System.Drawing.Size(252, 30);
+            this.txtcaja1.Size = new System.Drawing.Size(252, 29);
             this.txtcaja1.TabIndex = 0;
             // 
             // cbciclo
@@ -79,7 +79,7 @@
             this.cbciclo.Location = new System.Drawing.Point(192, 156);
             this.cbciclo.Margin = new System.Windows.Forms.Padding(4);
             this.cbciclo.Name = "cbciclo";
-            this.cbciclo.Size = new System.Drawing.Size(252, 33);
+            this.cbciclo.Size = new System.Drawing.Size(252, 32);
             this.cbciclo.TabIndex = 2;
             // 
             // cbdestino
@@ -96,8 +96,9 @@
             this.cbdestino.Location = new System.Drawing.Point(192, 213);
             this.cbdestino.Margin = new System.Windows.Forms.Padding(4);
             this.cbdestino.Name = "cbdestino";
-            this.cbdestino.Size = new System.Drawing.Size(252, 33);
+            this.cbdestino.Size = new System.Drawing.Size(252, 32);
             this.cbdestino.TabIndex = 3;
+            
             // 
             // label2
             // 
@@ -108,7 +109,7 @@
             this.label2.Location = new System.Drawing.Point(99, 161);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(63, 24);
+            this.label2.Size = new System.Drawing.Size(61, 22);
             this.label2.TabIndex = 6;
             this.label2.Text = "Ciclo:";
             // 
@@ -121,7 +122,7 @@
             this.label3.Location = new System.Drawing.Point(73, 218);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(86, 24);
+            this.label3.Size = new System.Drawing.Size(84, 22);
             this.label3.TabIndex = 7;
             this.label3.Text = "Destino:";
             // 
@@ -174,7 +175,7 @@
             this.cbrampa.Location = new System.Drawing.Point(192, 102);
             this.cbrampa.Margin = new System.Windows.Forms.Padding(4);
             this.cbrampa.Name = "cbrampa";
-            this.cbrampa.Size = new System.Drawing.Size(252, 33);
+            this.cbrampa.Size = new System.Drawing.Size(252, 32);
             this.cbrampa.TabIndex = 1;
             this.cbrampa.SelectedIndexChanged += new System.EventHandler(this.cbrampa_SelectedIndexChanged);
             // 
@@ -187,7 +188,7 @@
             this.label4.Location = new System.Drawing.Point(80, 107);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(81, 24);
+            this.label4.Size = new System.Drawing.Size(78, 22);
             this.label4.TabIndex = 9;
             this.label4.Text = "Rampa:";
             // 
@@ -200,7 +201,7 @@
             this.label5.Location = new System.Drawing.Point(91, 271);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(69, 24);
+            this.label5.Size = new System.Drawing.Size(68, 22);
             this.label5.TabIndex = 10;
             this.label5.Text = "Notas:";
             // 

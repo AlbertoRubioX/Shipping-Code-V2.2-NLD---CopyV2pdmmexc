@@ -10,13 +10,8 @@ using System.Data.OleDb;
 
 namespace WindowsFormsApplication1
 {
-    
-    
-    
     public partial class LogIn : Form
     {
-
-
         Datos Consultar = new Datos();
     
         public LogIn()

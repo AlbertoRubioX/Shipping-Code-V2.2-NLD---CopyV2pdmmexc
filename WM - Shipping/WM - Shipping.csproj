@@ -15,10 +15,10 @@
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>C:\code\Shipping Code V2.2 NLD - Copy\Installer\</PublishUrl>
+    <PublishUrl>\\mxcprdfp1\Software_MXC\Shipping Sql version\Installer\</PublishUrl>
     <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
+    <InstallFrom>Unc</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
     <UpdateMode>Foreground</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
@@ -80,10 +80,11 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>28C8F0D5EF987AD706C15EE893351077B171DC72</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>D905D25737E6FA056BAE2EDE3609C47C733C1225</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>WM - Shipping_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>
+    </ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -299,6 +300,12 @@
     <Compile Include="remover_lote.Designer.cs">
       <DependentUpon>remover_lote.cs</DependentUpon>
     </Compile>
+    <Compile Include="ReporteEmbarcadoRes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReporteEmbarcadoRes.Designer.cs">
+      <DependentUpon>ReporteEmbarcadoRes.cs</DependentUpon>
+    </Compile>
     <Compile Include="ReporteEmbarcado.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -426,6 +433,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="remover_lote.resx">
       <DependentUpon>remover_lote.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteEmbarcadoRes.resx">
+      <DependentUpon>ReporteEmbarcadoRes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReporteEmbarcado.resx">
       <DependentUpon>ReporteEmbarcado.cs</DependentUpon>
@@ -569,6 +579,18 @@
     <None Include="Resources\accept.ico" />
     <None Include="Resources\zoom.ico" />
     <None Include="Resources\arrowright_green16.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <PublishFile Include="Microsoft.VisualStudio.Data.Core">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -14,8 +14,10 @@ namespace WindowsFormsApplication1
         //private const string CadenaCon = ("Data Source =NLPRDLOCALDB1;Initial Catalog = ShippingSystem; User Id = nldprodtest; Password=T3stPrdN19L;");//
         //PDM Enviroment//
         //private const string CadenaCon = ("Data Source =NLPRDLOCALDB1;Initial Catalog = ShippingSystem; User Id = nldprod; Password=nldprod;");//
+        //MXC Test Enviroment//
+        //private const string CadenaCon = ("Data Source =MXCPRDLOCALDB01;Initial Catalog = ShippingSystemTest; User Id = mxcprd; Password=Admin10;");
         //MXC Enviroment//
-        private const string CadenaCon = ("Data Source =MXCPRDLOCALDB01;Initial Catalog = ShippingSystemTest; User Id = mxcprd; Password=Admin10;");
+        private const string CadenaCon = ("Data Source =MXCPRDLOCALDB01;Initial Catalog = ShippingSystem; User Id = mxcprd; Password=Admin10;");
 
         public static string grabada = "N", num_cargal, numero_cajal;
         public string rampa, rampa_vacial = "Y";
@@ -31,7 +33,7 @@ namespace WindowsFormsApplication1
             {
                 this.strName = Name;
                 this.intId = Id;
-            }
+            }   
             public string getName
             {
                 get { return strName; }
@@ -2091,6 +2093,45 @@ namespace WindowsFormsApplication1
             
         }
 
+        public bool ConfigSMTP(ref string server,ref string smtp_user,ref int puerto,ref string mapa,ref string discre)
+        {
+
+            Conexion = new SqlConnection();
+            Conexion.ConnectionString = CadenaCon;
+            string strSQL = "Select * from Config where Compania=" + GlobalVar.Compania + " ";
+            SqlCommand cmd = new SqlCommand(strSQL, this.Conexion);
+            SqlDataReader dr = null;
+            try
+            {
+                Conexion.Open();
+                dr = cmd.ExecuteReader();
+                if (!dr.HasRows)
+                {
+                    return false;
+                }
+                else
+                {
+                    dr.Read();
+                    server = dr["smtp"].ToString().Trim();
+                    smtp_user = dr["usuario"].ToString().Trim();
+                    puerto = int.Parse(dr["puerto"].ToString());
+                    mapa = dr["mapa_file"].ToString().Trim();
+                    discre = dr["discre_file"].ToString().Trim();
+                    return true;
+                }
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("Error, no se encontro configuración" + exception.Message);
+            }
+            finally
+            {
+                dr.Close();
+                Conexion.Close();
+            }
+
+        }
+
         public bool M3ParcialesLote(ref ArrayList lote, int carga)
         {
             this.Conexion = new SqlConnection();
@@ -2375,6 +2416,35 @@ namespace WindowsFormsApplication1
            
         }
 
+        public DataTable ShipReportEmbarcadoResumen(int Compania, string FechaInicial, string FechaFinal)
+        {
+            Conexion = new SqlConnection();
+            Conexion.ConnectionString = CadenaCon;
+            SqlCommand cmd = new SqlCommand("EXEC ShipReportEmbarcadoResumen  @_Compania, @_FechaInicial, @_FechaFinal", Conexion);
+            DataTable dt = new DataTable();
+            SqlDataAdapter da = new SqlDataAdapter();
+            try
+            {
+                Conexion.Open();
+                cmd.Parameters.AddWithValue("_Compania", Compania);
+                cmd.Parameters.AddWithValue("_FechaInicial", FechaInicial.Trim());
+                cmd.Parameters.AddWithValue("_FechaFinal", FechaFinal.Trim());
+                da.SelectCommand = cmd;
+                da.Fill(dt);
+                return dt;
+            }
+            catch (Exception Error)
+            {
+                throw new Exception("Error: Reporte Embarcado" + Error.Message);
+            }
+            finally
+            {
+                Conexion.Close();
+                Conexion.Dispose();
+                SqlConnection.ClearPool(Conexion);
+            }
+
+        }
 
         public void ObtenerFormatoArchivo(ref string Fecha)
         {

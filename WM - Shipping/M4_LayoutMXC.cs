@@ -264,7 +264,7 @@ namespace WindowsFormsApplication1
             if (R2.Value >= 1)
             {
                 carga_porcent = R2.Value + "/30";
-                rampa_d = 1;
+                rampa_d = 2;
                 M4_DockDetail detalle = new M4_DockDetail();
                 detalle.ShowDialog();
             }
@@ -279,7 +279,7 @@ namespace WindowsFormsApplication1
             if (R3.Value >= 1)
             {
                 carga_porcent = R3.Value + "/30";
-                rampa_d = 1;
+                rampa_d = 3;
                 M4_DockDetail detalle = new M4_DockDetail();
                 detalle.ShowDialog();
             }
@@ -294,7 +294,7 @@ namespace WindowsFormsApplication1
             if (R4.Value >= 1)
             {
                 carga_porcent = R4.Value + "/30";
-                rampa_d = 1;
+                rampa_d = 4;
                 M4_DockDetail detalle = new M4_DockDetail();
                 detalle.ShowDialog();
             }
@@ -309,7 +309,7 @@ namespace WindowsFormsApplication1
             if (R5.Value >= 1)
             {
                 carga_porcent = R5.Value + "/30";
-                rampa_d = 1;
+                rampa_d = 5;
                 M4_DockDetail detalle = new M4_DockDetail();
                 detalle.ShowDialog();
             }
@@ -324,7 +324,7 @@ namespace WindowsFormsApplication1
             if (R6.Value >= 1)
             {
                 carga_porcent = R6.Value + "/30";
-                rampa_d = 1;
+                rampa_d = 6;
                 M4_DockDetail detalle = new M4_DockDetail();
                 detalle.ShowDialog();
             }
@@ -339,7 +339,7 @@ namespace WindowsFormsApplication1
             if (R7.Value >= 1)
             {
                 carga_porcent = R7.Value + "/30";
-                rampa_d = 1;
+                rampa_d = 7;
                 M4_DockDetail detalle = new M4_DockDetail();
                 detalle.ShowDialog();
             }
@@ -354,7 +354,7 @@ namespace WindowsFormsApplication1
             if (R8.Value >= 1)
             {
                 carga_porcent = R8.Value + "/30";
-                rampa_d = 1;
+                rampa_d = 8;
                 M4_DockDetail detalle = new M4_DockDetail();
                 detalle.ShowDialog();
             }
@@ -369,7 +369,7 @@ namespace WindowsFormsApplication1
             if (R9.Value >= 1)
             {
                 carga_porcent = R9.Value + "/30";
-                rampa_d = 1;
+                rampa_d = 9;
                 M4_DockDetail detalle = new M4_DockDetail();
                 detalle.ShowDialog();
             }
@@ -384,7 +384,7 @@ namespace WindowsFormsApplication1
             if (R10.Value >= 1)
             {
                 carga_porcent = R10.Value + "/30";
-                rampa_d = 1;
+                rampa_d = 10;
                 M4_DockDetail detalle = new M4_DockDetail();
                 detalle.ShowDialog();
             }
@@ -399,7 +399,7 @@ namespace WindowsFormsApplication1
             if (R11.Value >= 1)
             {
                 carga_porcent = R11.Value + "/30";
-                rampa_d = 1;
+                rampa_d = 11;
                 M4_DockDetail detalle = new M4_DockDetail();
                 detalle.ShowDialog();
             }
@@ -414,7 +414,7 @@ namespace WindowsFormsApplication1
             if (R12.Value >= 1)
             {
                 carga_porcent = R12.Value + "/30";
-                rampa_d = 1;
+                rampa_d = 12;
                 M4_DockDetail detalle = new M4_DockDetail();
                 detalle.ShowDialog();
             }
@@ -429,7 +429,7 @@ namespace WindowsFormsApplication1
             if (R13.Value >= 1)
             {
                 carga_porcent = R13.Value + "/30";
-                rampa_d = 1;
+                rampa_d = 13;
                 M4_DockDetail detalle = new M4_DockDetail();
                 detalle.ShowDialog();
             }
@@ -444,7 +444,7 @@ namespace WindowsFormsApplication1
             if (R14.Value >= 1)
             {
                 carga_porcent = R14.Value + "/30";
-                rampa_d = 1;
+                rampa_d = 14;
                 M4_DockDetail detalle = new M4_DockDetail();
                 detalle.ShowDialog();
             }
@@ -459,7 +459,7 @@ namespace WindowsFormsApplication1
             if (R15.Value >= 1)
             {
                 carga_porcent = R15.Value + "/30";
-                rampa_d = 1;
+                rampa_d = 15;
                 M4_DockDetail detalle = new M4_DockDetail();
                 detalle.ShowDialog();
             }
@@ -474,7 +474,7 @@ namespace WindowsFormsApplication1
             if (R16.Value >= 1)
             {
                 carga_porcent = R16.Value + "/30";
-                rampa_d = 1;
+                rampa_d = 16;
                 M4_DockDetail detalle = new M4_DockDetail();
                 detalle.ShowDialog();
             }
@@ -489,7 +489,7 @@ namespace WindowsFormsApplication1
             if (R17.Value >= 1)
             {
                 carga_porcent = R17.Value + "/30";
-                rampa_d = 1;
+                rampa_d = 17;
                 M4_DockDetail detalle = new M4_DockDetail();
                 detalle.ShowDialog();
             }
@@ -504,7 +504,7 @@ namespace WindowsFormsApplication1
             if (R18.Value >= 1)
             {
                 carga_porcent = R18.Value + "/30";
-                rampa_d = 1;
+                rampa_d = 18;
                 M4_DockDetail detalle = new M4_DockDetail();
                 detalle.ShowDialog();
             }
@@ -519,7 +519,7 @@ namespace WindowsFormsApplication1
             if (R19.Value >= 1)
             {
                 carga_porcent = R19.Value + "/30";
-                rampa_d = 1;
+                rampa_d = 19;
                 M4_DockDetail detalle = new M4_DockDetail();
                 detalle.ShowDialog();
             }

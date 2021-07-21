@@ -165,10 +165,27 @@ namespace WindowsFormsApplication1
                             unmps = Convert.ToDouble(reader["IMSHUN"]);
                         }
                         fgstatus = reader["IMSTS"].ToString();                      // Using same formulas as R38 Status Code
-                        book4 = Convert.ToDouble(reader["BOOK4"]);                  // Using same formulas as R38 BOOK4
-                        book5 = Convert.ToDouble(reader["BOOK5"]);                  // Using same formulas as R38 BOOK5
-                        book6 = Convert.ToDouble(reader["BOOK6"]);                  // Using same formulas as R38 BOOK6
-                        fgmioh = Convert.ToDouble(reader["MO9270"]);                // Using same formulas as R38 Months On Hand
+
+                        if (reader["BOOK4"] is DBNull)
+                            book4 = 0;
+                        else
+                            book4 = Convert.ToDouble(reader["BOOK4"]);                  // Using same formulas as R38 BOOK4
+
+                        if (reader["BOOK5"] is DBNull)
+                            book5 = 0;
+                        else
+                            book5 = Convert.ToDouble(reader["BOOK5"]);                  // Using same formulas as R38 BOOK5
+
+                        if (reader["BOOK6"] is DBNull)
+                            book6 = 0;
+                        else
+                            book6 = Convert.ToDouble(reader["BOOK6"]);                  // Using same formulas as R38 BOOK6
+
+                        if (reader["MO9270"] is DBNull)
+                            fgmioh = 0;
+                        else
+                            fgmioh = Convert.ToDouble(reader["MO9270"]);                // Using same formulas as R38 Months On Hand
+
                         producto = reader["WOPN"].ToString();                       // WO Tray
                         producto = producto.TrimEnd();
                         family = reader["TF9270"].ToString();                       // Tray Family
@@ -178,6 +195,7 @@ namespace WindowsFormsApplication1
                             NPScycle = reader["FSTCY1"].ToString();                     // NPS Cycle
                         }
                         Mscycle = reader["FSTCY2"].ToString();                      // Midwest Cycle
+
                         Opencycle1 = reader["FSTCY3"].ToString();                   // Open Cycle 1
                         if (GlobalVar.Compania == 110)
                         {
@@ -193,13 +211,38 @@ namespace WindowsFormsApplication1
                         {
                             ester = reader["SF580411"].ToString();
                         }
-                        csxtarima = Convert.ToDouble(reader["CSPER"]);              // Cajas por tarima
-                        worqty = Convert.ToDouble(reader["WOQTY"]);                 // Cantidad de cs en WO
-                        operation = Convert.ToInt32(reader["WOCOPN"]);
-                        qpc_q = Convert.ToInt32(reader["IMSTCK"]);                  // obteniendo cantidad de kits x caja
-                        pesoxunit = Convert.ToDouble(reader["IMWHT"]);              // obteniendo el peso del kit
-                        qwster = Convert.ToInt32(reader["Q13480"]);                 // QW Esteril
-                        qwnonster = Convert.ToInt32(reader["Q14480"]);              // QW NO esteril
+                        if (reader["CSPER"] is DBNull)
+                            csxtarima = 0;
+                        else
+                            csxtarima = Convert.ToDouble(reader["CSPER"]);              // Cajas por tarima
+                        if (reader["WOQTY"] is DBNull)
+                            worqty = 0;
+                        else
+                            worqty = Convert.ToDouble(reader["WOQTY"]);                 // Cantidad de cs en WO
+                        if (reader["WOCOPN"] is DBNull)
+                            operation = 0;
+                        else
+                            operation = Convert.ToInt32(reader["WOCOPN"]);
+                        if (reader["IMSTCK"] is DBNull)
+                            qpc_q = 0;
+                        else
+                            qpc_q = Convert.ToInt32(reader["IMSTCK"]);
+                        // obteniendo cantidad de kits x caja
+                        if (reader["IMWHT"] is DBNull)
+                            pesoxunit = 0;
+                        else
+                            pesoxunit = Convert.ToDouble(reader["IMWHT"]);              // obteniendo el peso del kit
+
+                        if (reader["Q13480"] is DBNull)
+                            qwster = 0;
+                        else
+                            qwster = Convert.ToInt32(reader["Q13480"]);                 // QW Esteril
+
+                        if (reader["Q14480"] is DBNull)
+                            qwnonster = 0;
+                        else
+                            qwnonster = Convert.ToInt32(reader["Q14480"]);              // QW NO esteril
+
                         branch_loc = reader["BLOC1"].ToString();                    // Branch
                         branch_loc2 = reader["SL9270"].ToString();                    // Branch2
                         branch_loc2= branch_loc2.TrimEnd();

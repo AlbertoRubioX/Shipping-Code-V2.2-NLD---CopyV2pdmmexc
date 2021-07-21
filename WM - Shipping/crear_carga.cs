@@ -60,6 +60,7 @@ namespace WindowsFormsApplication1
         {
             this.Close();
         }
+        
 
         private void LlenarComboRampa()
         {

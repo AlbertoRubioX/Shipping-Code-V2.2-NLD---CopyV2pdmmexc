@@ -226,5 +226,11 @@ namespace WindowsFormsApplication1
             CloseBoxTrailer Trailer = new CloseBoxTrailer();
             Trailer.ShowDialog();
         }
+
+        private void reumenDeEmbarquesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ReporteEmbarcadoRes RembarcadoRes = new ReporteEmbarcadoRes();
+            RembarcadoRes.ShowDialog();
+        }
     }
 }

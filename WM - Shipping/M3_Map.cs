@@ -30,9 +30,10 @@ namespace WindowsFormsApplication1
         public static string  id_carga1,incompleto="N",message1="",numero_de_rampa,numero_carga1,reasignar="N",numero_loc;
         public string cargar1="Y", sqlrowcount, empalme, cajas_ch,name_txt,ciclo,destino1, correo="N", notas, loc, rampa, posicion1, producto, lote, cajas, tarimas, cargador, lote_1, localizacion_1, cajas1, lote1, cajas_prqoh1, conteo, totalt, num11, num12, qty1, pos_caja, empal, loct, pospdf, traypdf, lottpdf, qtypdf, tarimapdf, usuariopdf, Validacion;
         Datos Consultar = new Datos();
-        public int errorsave,posicion, answer, envio;
+        public int errorsave,posicion, answer, envio,puerto;
         public double  cbf_n, total;
         public bool Cancel = false;
+        public string server, smtp_user, mapa, discre;
         public Button btn;
         ArrayList lblcargas = new ArrayList();
         ArrayList lblciclos = new ArrayList();
@@ -1057,12 +1058,12 @@ namespace WindowsFormsApplication1
                         Attachment adjunto1 = new Attachment(PathFile1);
                         Attachment adjunto2 = new Attachment(PathFile2);
                         MailMessage mail = new MailMessage("PDMShipping@medline.com", "PDMShipping@medline.com");
-                        mail.CC.Add("ctorres@medline.com");
+                        mail.CC.Add("ADeLeon@medline.com");
                         SmtpClient client = new SmtpClient();
                         client.Port = 25;
                         client.DeliveryMethod = SmtpDeliveryMethod.Network;
                         client.UseDefaultCredentials = false;
-                        client.Host = "muncasarray1.medline.com";
+                        client.Host = "mailhost.medline.com";
                         mail.Subject = "Shipping SYSTEM        MAPA-#" + txtcarga.Text + "-" + txtcaja.Text + "-" + ciclo + "   " + lblnotas.Text;
                         mail.Body = "Please find attached paperwork for shipment id# " + txtcarga.Text;
                         mail.Attachments.Add(adjunto1);
@@ -1071,7 +1072,8 @@ namespace WindowsFormsApplication1
                         correo = "Y";
                     }
                     else
-                    {
+                    {/*////////////////////////*/
+
                         correo = "N";
 
                     }
@@ -1089,37 +1091,39 @@ namespace WindowsFormsApplication1
             {
                 try
                 {
-                    string PathFile1 = @"\\mxcprdfp1\Software_MXC\ShippingSystem\Mapas_electronicos\MergedSqlTest\MAPA_#" + txtcarga.Text + ".pdf";
-                    string PathFile2 = @"\\mxcprdfp1\Software_MXC\ShippingSystem\Mapas_electronicos\Reporte_discrepanciasSqltest\Discrepancias_MAPA#" + txtcarga.Text + ".txt";
-
-                    if (System.IO.File.Exists(PathFile1) && System.IO.File.Exists(PathFile2))
+                    if (Consultar.ConfigSMTP(ref server,ref smtp_user,ref puerto,ref mapa,ref discre ) == true)
                     {
-                        Attachment adjunto1 = new Attachment(PathFile1);
-                        Attachment adjunto2 = new Attachment(PathFile2);
-                        MailMessage mail = new MailMessage("MXLShipping@medline.com", "MXLShipping@medline.com");
-                        mail.CC.Add("ctorres@medline.com");
-                        SmtpClient client = new SmtpClient();
-                        client.Port = 25;
-                        client.DeliveryMethod = SmtpDeliveryMethod.Network;
-                        client.UseDefaultCredentials = false;
-                        client.Host = "muncasarray1.medline.com";
-                        mail.Subject = "Shipping SYSTEM Mexicali       MAPA-#" + txtcarga.Text + "-" + txtcaja.Text + "-" + ciclo + "   " + lblnotas.Text;
-                        mail.Body = "Please find attached paperwork for shipment id# " + txtcarga.Text;
-                        mail.Attachments.Add(adjunto1);
-                        mail.Attachments.Add(adjunto2);
-                        client.Send(mail);
-                        correo = "Y";
+                        //string PathFile1 = @"\\mxcprdfp1\Software_MXC\ShippingSystem\Mapas_electronicos\MergedSqlTest\MAPA_#" + txtcarga.Text + ".pdf";
+                        //string PathFile2 = @"\\mxcprdfp1\Software_MXC\ShippingSystem\Mapas_electronicos\Reporte_discrepanciasSqltest\Discrepancias_MAPA#" + txtcarga.Text + ".txt";
+                        string PathFile1 = mapa + "\\MAPA_#" + txtcarga.Text + ".pdf";
+                        string PathFile2 = discre + "\\Discrepancias_MAPA#" + txtcarga.Text + ".txt";
+
+                        if (File.Exists(PathFile1) && File.Exists(PathFile2))
+                        {
+                            Attachment adjunto1 = new Attachment(PathFile1);
+                            Attachment adjunto2 = new Attachment(PathFile2);
+                            MailMessage mail = new MailMessage(smtp_user, smtp_user);
+                            SmtpClient client = new SmtpClient();
+                            mail.CC.Add("Algonzalez@medline.com");
+                            client.Port = puerto;
+                            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                            client.UseDefaultCredentials = false;
+                            client.Host = server;//muncasarray1.medline.com
+                            mail.Subject = "Shipping SYSTEM Mexicali       MAPA-#" + txtcarga.Text + "-" + txtcaja.Text + "-" + ciclo + "   " + lblnotas.Text;
+                            mail.Body = "Please find attached paperwork for shipment id# " + txtcarga.Text;
+                            mail.Attachments.Add(adjunto1);
+                            mail.Attachments.Add(adjunto2);
+                            client.Send(mail);
+                            correo = "Y";
+                        }
+                        else
+                            correo = "N";
                     }
                     else
-                    {
                         correo = "N";
-
-                    }
-
                 }
                 catch (Exception ex)
                 {
-
                     toolStripProgressBar1.Visible = false;
                     MessageBox.Show(ex.Message);
                 }
@@ -1176,75 +1180,77 @@ namespace WindowsFormsApplication1
                         }
                         else
                         {
-
-                            //string hora = DateTime.Now.ToString("HH:mm");
-                            //string date1 = DateTime.Now.ToString("MM/dd/yy");
-                            Consultar.M3ModificarEmbarcado(txtcaja.Text, txtcarga.Text);
-                            toolStripProgressBar1.Value = 4;
-
-                            toolStripProgressBar1.Value = 5;
-                            rojo.Visible = false;
-                            amarillo.Visible = false;
-                            verde.Visible = false;
-                            label33.Visible = false;
-                            lblnotas.Visible = false;
-                            label36.Visible = false;
-                            cbfporcentaje.Visible = false;
-                            cbfvalor.Visible = false;
-                            discrepancias_qty((object)sender, (EventArgs)e);
-                            toolStripProgressBar1.Value = 6;
-                            crear_mapa((object)sender, (EventArgs)e);
-                            toolStripProgressBar1.Value = 8;
-                            juntar_pdfs((object)sender, (EventArgs)e);
-                            toolStripProgressBar1.Value = 9;
-                            if (correo == "Y")
+                            try
                             {
-                                send_mapa((object)sender, (EventArgs)e);
+                                //string hora = DateTime.Now.ToString("HH:mm");
+                                //string date1 = DateTime.Now.ToString("MM/dd/yy");
+                                Consultar.M3ModificarEmbarcado(txtcaja.Text, txtcarga.Text);
+                                toolStripProgressBar1.Value = 4;
+
+                                toolStripProgressBar1.Value = 5;
+                                rojo.Visible = false;
+                                amarillo.Visible = false;
+                                verde.Visible = false;
+                                label33.Visible = false;
+                                lblnotas.Visible = false;
+                                label36.Visible = false;
+                                cbfporcentaje.Visible = false;
+                                cbfvalor.Visible = false;
+                                discrepancias_qty((object)sender, (EventArgs)e);
+                                toolStripProgressBar1.Value = 6;
+                                crear_mapa((object)sender, (EventArgs)e);
+                                toolStripProgressBar1.Value = 8;
+                                juntar_pdfs((object)sender, (EventArgs)e);
+                                toolStripProgressBar1.Value = 9;
                                 if (correo == "Y")
                                 {
-                                    Consultar.M3Embarcado(txtcarga.Text);
-                                    limpiar_textbox((object)sender, (EventArgs)e);
-                                    toolStripProgressBar1.Value = 10;
-                                    txtcaja.Text = "";
-                                    txtrampa.Text = "";
-                                    lblciclo.Text = "";
-                                    lbldestino.Text = "";
-                                    txtlocalizacion.Text = "";
-                                    MessageBox.Show("Embarque completado", "Completado", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                                    toolStripProgressBar1.Visible = false;
+                                    send_mapa((object)sender, (EventArgs)e);
+                                    if (correo == "Y")
+                                    {
+                                        Consultar.M3Embarcado(txtcarga.Text);
+                                        limpiar_textbox((object)sender, (EventArgs)e);
+                                        toolStripProgressBar1.Value = 10;
+                                        txtcaja.Text = "";
+                                        txtrampa.Text = "";
+                                        lblciclo.Text = "";
+                                        lbldestino.Text = "";
+                                        txtlocalizacion.Text = "";
+                                        MessageBox.Show("Embarque completado", "Completado", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                                        toolStripProgressBar1.Visible = false;
+                                    }
+                                    else
+                                        MessageBox.Show("Error al adjuntar archivo en correo", "No completado", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                                 }
                                 else
-                                {
                                     MessageBox.Show("Error al adjuntar archivo en correo", "No completado", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                                }
 
                             }
-                            else
+                            catch (Exception ex)
                             {
-                                MessageBox.Show("Error al adjuntar archivo en correo", "No completado", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                MessageBox.Show(ex.ToString(), Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
                         }
                     }
                 }
-                    else
-                    {
-                        toolStripProgressBar1.Visible = false;
-                        MessageBox.Show("Mapa no tiene lotes cargados", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                else
+                {
+                    toolStripProgressBar1.Visible = false;
+                    MessageBox.Show("Mapa no tiene lotes cargados", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }      
         }
 
         
         private void discrepancias_qty(object sender,EventArgs e)
-    {
+        {
             lote1 = "";
             cajas1 = "";
 
             lot.Clear();
             lblcajas.Clear();
 
-            string texto = "Reporte de Discrepancias en MAPA # " + txtcarga.Text + Environment.NewLine + Environment.NewLine + "Lote\t\tCajas_Declaradas\tCajas_AS400";
-        OdbcConnection conexion = new OdbcConnection("Dsn=QDSN_AS400SYS;uid=shipmex;pwd=mexship");
+            string texto = "Reporte de Discrepancias en MAPA # " + txtcarga.Text + Environment.NewLine + Environment.NewLine + "Lote\t\tCajas_Declaradas\tCajas_AS400\tUM";
+            OdbcConnection conexion = new OdbcConnection("Dsn=QDSN_AS400SYS;uid=shipmex;pwd=mexship");
 
           
 
@@ -1258,20 +1264,21 @@ namespace WindowsFormsApplication1
                 {
                         lote1 += lot[i];
                         cajas1 += lblcajas[i];
-                    String sql2 = "Select B.WDQTCM as qty_complete from KBM400MFG.FMWOSUM  A INNER JOIN KBM400MFG.FMWODET B ON A.WOWONO =B.WOWONO  where A.WOCO= " + GlobalVar.Compania + " and A.WOLOT='" + lote1 + "' and (RTOPNO=0021 OR RTOPNO=0030) ";
+                    String sql2 = "Select B.WDQTCM as qty_complete ,A.WOUNTM AS um from KBM400MFG.FMWOSUM  A INNER JOIN KBM400MFG.FMWODET B ON A.WOWONO =B.WOWONO  where A.WOCO= " + GlobalVar.Compania + " and A.WOLOT='" + lote1 + "' and (RTOPNO=0021 OR RTOPNO=0030) ";
                     conexion.Open();
                     OdbcCommand comando1 = new OdbcCommand(sql2, conexion);
                     OdbcDataReader reader1 = comando1.ExecuteReader();
                     if (reader1.Read())
                     {
                         cajas_prqoh1 = reader1["qty_complete"].ToString();
+                        string sUM = reader1["um"].ToString();
                         if (cajas_prqoh1 == cajas1)
                         {
                             // no hacer nada
                         }
                         else
                         {
-                           texto = texto + Environment.NewLine + lote1 + "\t" + cajas1 + "\t\t\t" + cajas_prqoh1 ;
+                           texto = texto + Environment.NewLine + lote1 + "\t" + cajas1 + "\t\t\t" + cajas_prqoh1 + "\t\t\t" + sUM;
 
                         }
                         
@@ -3248,7 +3255,7 @@ namespace WindowsFormsApplication1
                     PdfCopy pdfCopyProvider = null;
                     PdfImportedPage importedPage;
                     string outputPdfPath = @"\\mxcprdfp1\Software_MXC\ShippingSystem\Mapas_electronicos\Mergedsqltest\MAPA_#" + txtcarga.Text + ".pdf";
-
+                    
                     sourceDocument = new Document();
                     pdfCopyProvider = new PdfCopy(sourceDocument, new System.IO.FileStream(outputPdfPath, System.IO.FileMode.Create));
 

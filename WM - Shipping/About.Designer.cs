@@ -57,7 +57,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(240, 88);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Shipping System V1.0.0.4\r\n\r\nProductos Medline\r\n Update Junio 2020";
+            this.label2.Text = "Shipping System V1.0.0.2\r\n\r\nProductos Medline\r\n Update Junio 2020";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // About
