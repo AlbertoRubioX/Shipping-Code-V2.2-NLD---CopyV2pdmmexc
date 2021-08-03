@@ -294,6 +294,12 @@
     <Compile Include="regresar_lote.Designer.cs">
       <DependentUpon>regresar_lote.cs</DependentUpon>
     </Compile>
+    <Compile Include="solicitar_password.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="solicitar_password.Designer.cs">
+      <DependentUpon>solicitar_password.cs</DependentUpon>
+    </Compile>
     <Compile Include="remover_lote.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -430,6 +436,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="regresar_lote.resx">
       <DependentUpon>regresar_lote.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="solicitar_password.resx">
+      <DependentUpon>solicitar_password.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="remover_lote.resx">
       <DependentUpon>remover_lote.cs</DependentUpon>

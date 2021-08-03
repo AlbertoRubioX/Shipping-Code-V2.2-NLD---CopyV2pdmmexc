@@ -18,10 +18,7 @@ using iTextSharp.text.pdf;
 using System.Data.Odbc;
 using System.Text.RegularExpressions;
 using System.Collections;
-
-
-
-
+using System.Diagnostics;
 
 namespace WindowsFormsApplication1
 {
@@ -1133,10 +1130,12 @@ namespace WindowsFormsApplication1
         
         private void button2_Click(object sender, EventArgs e)
         {
+            
             discrepancias_Validacion(sender, e);
 
             if(Cancel == true)
             {
+                MessageBox.Show("La carga no puede ser completada debido a las discrepancias encontradas", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             
@@ -1308,6 +1307,7 @@ namespace WindowsFormsApplication1
 
         private void discrepancias_Validacion(object sender, EventArgs e)
         {
+            Cancel = false;
             lote1 = "";
             cajas1 = "";
 
@@ -1320,29 +1320,40 @@ namespace WindowsFormsApplication1
             Consultar.M3DiscrepanciasAs400(ref lot, ref lblcajas, Convert.ToInt32(txtcarga.Text));
 
             int total = (lot.Count - 1);
-
+            int iVal = 0;
             if (total >= 0)
             {
                 for (int i = 0; i <= total; i++)
                 {
                     if (total >= i)
                     {
-                        lote1 += lot[i];
-                        cajas1 += lblcajas[i];
+                        //21-07-2021
+                        //canged += to .ToString()
+                        lote1 = lot[i].ToString();
+                        cajas1 = lblcajas[i].ToString();
 
-                        String sql2 = "Select B.WDQTCM as qty_complete from KBM400MFG.FMWOSUM  A INNER JOIN KBM400MFG.FMWODET B ON A.WOWONO =B.WOWONO  where A.WOCO= " + GlobalVar.Compania + " and A.WOLOT='" + lote1 + "' and (RTOPNO=0021 OR RTOPNO=0030) and B.RTCO = " + GlobalVar.Compania + " ";
+                        String sql2 = "Select B.WDQTCM as qty_complete,A.WOUNTM AS um from KBM400MFG.FMWOSUM  A INNER JOIN KBM400MFG.FMWODET B ON A.WOWONO =B.WOWONO  where A.WOCO= " + GlobalVar.Compania + " and A.WOLOT='" + lote1 + "' and (RTOPNO=0021 OR RTOPNO=0030) and B.RTCO = " + GlobalVar.Compania + " ";
                         conexion.Open();
                         OdbcCommand comando1 = new OdbcCommand(sql2, conexion);
                         OdbcDataReader reader1 = comando1.ExecuteReader();
                         if (reader1.Read())
                         {
                             int cajas_prqoh12 = Convert.ToInt32(reader1["qty_complete"]);
+                            string um = reader1["um"].ToString();
                             int icajas = Convert.ToInt32(cajas1);
 
+                            if (cajas_prqoh12 != icajas)
+                            {
+                                Cancel = true;
+                                break;
+                            }
+
+                            /*
                             if (cajas_prqoh12 < icajas)
                             {
-                                MessageBox.Show("Lote '" + lote1 + " ' Cantidad de cajas no puede ser Mayor AS400 '" + cajas_prqoh12 + "' Shipping '" + icajas + " ' ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                Validacion = Microsoft.VisualBasic.Interaction.InputBox("Favor de poner Contrasena");
+                                iVal = 1;
+                                MessageBox.Show("Lote '" + lote1 + " ' Cantidad de cajas no puede ser Mayor AS400: " + cajas_prqoh12 + " (" + um + ") Shipping: " + icajas + " ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                Validacion = Microsoft.VisualBasic.Interaction.InputBox("Favor de poner Contraseña");
 
                                 if (Validacion.Length == 0)
                                 {
@@ -1353,9 +1364,10 @@ namespace WindowsFormsApplication1
                                 {
                                     if (Consultar.M3password(Validacion) == false)
                                     {
-                                        MessageBox.Show("Contrasena Incorrecta", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                        Validacion = Microsoft.VisualBasic.Interaction.InputBox("Favor de poner Contrasena");
-
+                                        MessageBox.Show("Contraseña Incorrecta", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        //Validacion = Microsoft.VisualBasic.Interaction.InputBox("Favor de poner Contrasena");
+                                        Cancel = true;
+                                        break;
                                     }
                                     else
                                     {
@@ -1365,8 +1377,9 @@ namespace WindowsFormsApplication1
                             }
                             else if (cajas_prqoh12 > icajas)
                             {
-                                MessageBox.Show("Lote '" + lote1 + " ' Cantidad de cajas no puede ser Menor AS400 '" + cajas_prqoh12 + "' Shipping '" + icajas + " ' ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                Validacion = Microsoft.VisualBasic.Interaction.InputBox("Favor de poner Contrasena");
+                                iVal = 2;
+                                MessageBox.Show("Lote '" + lote1 + " ' Cantidad de cajas no puede ser Menor AS400: " + cajas_prqoh12 + " (" + um + ") Shipping: " + icajas + " ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                Validacion = Microsoft.VisualBasic.Interaction.InputBox("Favor de poner Contraseña");
 
                                 if (Validacion.Length == 0)
                                 {
@@ -1377,9 +1390,10 @@ namespace WindowsFormsApplication1
                                 {
                                     if (Consultar.M3password(Validacion) == false)
                                     {
-                                        MessageBox.Show("Contrasena Incorrecta", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                        Validacion = Microsoft.VisualBasic.Interaction.InputBox("Favor de poner Contrasena");
-
+                                        MessageBox.Show("Contraseña Incorrecta", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        //Validacion = Microsoft.VisualBasic.Interaction.InputBox("Favor de poner Contrasena");
+                                        Cancel = true;
+                                        break;
                                     }
                                     else
                                     {
@@ -1387,14 +1401,74 @@ namespace WindowsFormsApplication1
                                     }
                                 }
                             }
-
+                            */
                         }
+                        /*
                         conexion.Close();
                         lote = "";
                         cajas1 = "";
+                        */
+                    }
+
+                    conexion.Close();
+                    lote = "";
+                    cajas1 = "";
+                }
+                conexion.Close();
+
+
+                if (Cancel)
+                {
+                    DialogResult answer = MessageBox.Show("Se han encontrado discrepancias en la carga" + Environment.NewLine + "Desea abrir el archivo de discrepancias encontradas?", "VERIFICAR", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (answer == DialogResult.Yes)
+                    {
+                        Cursor.Current = Cursors.WaitCursor;
+                        discrepancias_qty((object)sender, (EventArgs)e);
+
+                        string fic = @"\\mxcprdfp1\Software_MXC\ShippingSystem\Mapas_electronicos\Reporte_discrepanciasSqltest\Discrepancias_MAPA#" + txtcarga.Text + ".txt";
+
+                        if (File.Exists(fic))
+                            Process.Start(fic);
+
+                        Cursor.Current = Cursors.Default;
+                    }
+
+                    solicitar_password SupCode = new solicitar_password();
+                    SupCode.ShowDialog();
+                    if (SupCode._Supervisor)
+                    {
+                        Validacion = SupCode._Validacion;
+                        Cancel = false;
+
+                        for (int i = 0; i <= total; i++)
+                        {
+                            if (total >= i)
+                            {
+
+                                lote1 = lot[i].ToString();
+                                cajas1 = lblcajas[i].ToString();
+
+                                String sql2 = "Select B.WDQTCM as qty_complete,A.WOUNTM AS um from KBM400MFG.FMWOSUM  A INNER JOIN KBM400MFG.FMWODET B ON A.WOWONO =B.WOWONO  where A.WOCO= " + GlobalVar.Compania + " and A.WOLOT='" + lote1 + "' and (RTOPNO=0021 OR RTOPNO=0030) and B.RTCO = " + GlobalVar.Compania + " ";
+                                conexion.Open();
+                                OdbcCommand comando1 = new OdbcCommand(sql2, conexion);
+                                OdbcDataReader reader1 = comando1.ExecuteReader();
+                                if (reader1.Read())
+                                {
+                                    int cajas_prqoh12 = Convert.ToInt32(reader1["qty_complete"]);
+                                    string um = reader1["um"].ToString();
+                                    int icajas = Convert.ToInt32(cajas1);
+
+                                    if (cajas_prqoh12 != icajas)
+                                        Consultar.LoteIncompletos(lote1, cajas_prqoh12, icajas, Validacion, GlobalVar.Compania);
+                                }
+                                conexion.Close();
+                                lote = "";
+                                cajas1 = "";
+
+                            }
+                        }
                     }
                 }
-
             }
         }
 

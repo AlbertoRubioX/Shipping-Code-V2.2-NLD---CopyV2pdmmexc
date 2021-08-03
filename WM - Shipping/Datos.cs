@@ -17,7 +17,7 @@ namespace WindowsFormsApplication1
         //MXC Test Enviroment//
         //private const string CadenaCon = ("Data Source =MXCPRDLOCALDB01;Initial Catalog = ShippingSystemTest; User Id = mxcprd; Password=Admin10;");
         //MXC Enviroment//
-        private const string CadenaCon = ("Data Source =MXCPRDLOCALDB01;Initial Catalog = ShippingSystem; User Id = mxcprd; Password=Admin10;");
+        private const string CadenaCon = ("Data Source =MXCPRDLOCALDB01;Initial Catalog = ShippingSystemTest; User Id = mxcprd; Password=Admin10;");
 
         public static string grabada = "N", num_cargal, numero_cajal;
         public string rampa, rampa_vacial = "Y";
@@ -2487,7 +2487,7 @@ namespace WindowsFormsApplication1
             SqlDataReader dr = null;
             try
             {
-                cmd.Parameters.AddWithValue("_passwords", passwords);
+                //cmd.Parameters.AddWithValue("_passwords", passwords);
                 this.Conexion.Open();
                 dr = cmd.ExecuteReader();
                 if (!dr.HasRows)

@@ -43,6 +43,34 @@ namespace WindowsFormsApplication1
             sql = "Select lote from no_cargar where lote= '" + txtlote.Text + "'";
 
         }
+
+        private bool valida_op30()
+        {
+            OdbcConnection conexion = new OdbcConnection("Dsn=QDSN_AS400SYS;uid=shipmex;pwd=mexship");
+            sql = @"SELECT WOCOPN FROM   KBM400MFG.FMWOSUM where WOLOT='" + lbllote.Text + "' AND  WOCO=" + GlobalVar.Compania + "";
+            OdbcCommand comando = new OdbcCommand(sql, conexion);
+            OdbcDataReader reader = null;
+            try
+            {
+                conexion.Open();
+                reader = comando.ExecuteReader();
+                if (reader.Read())
+                {
+                    int op_number = Convert.ToInt32(reader["WOCOPN"]);
+                    if (op_number >= 30)
+                        return true;
+                }
+            }
+            catch (OdbcException excep)
+            {
+                conexion.Close();
+                MessageBox.Show(excep.Message);
+            }
+              
+             
+            return false;
+
+        }
         public void btnok_Click(object sender, EventArgs e)
         {
 
@@ -774,10 +802,20 @@ namespace WindowsFormsApplication1
                         no_duplicado(txtlote.Text, txttarima1.Text, txttarima2.Text, 0);
                         if (duplicado == "N")
                         {
-                            //no imprimiendo  sendtoprinter((object)sender, (EventArgs)e);
-                            revisar_destino((object)sender, (EventArgs)e);
-
-
+                            //valida as400 Operacion 30 [v1.0.0.3]
+                            if(txttarima1.Text == txttarima2.Text)
+                            {
+                                if(valida_op30())
+                                    revisar_destino((object)sender, (EventArgs)e);
+                                else
+                                    MessageBox.Show("Lote sin transacción 30 en as400 ", "Imposible registrar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                            else
+                            {
+                                //no imprimiendo  sendtoprinter((object)sender, (EventArgs)e);
+                                revisar_destino((object)sender, (EventArgs)e);
+                            }
+                            
                         }
                         else
                         {
