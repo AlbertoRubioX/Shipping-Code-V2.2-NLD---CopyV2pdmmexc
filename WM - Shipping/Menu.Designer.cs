@@ -43,6 +43,7 @@
             this.pisoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.supervisionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.retrabajarCargaToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.modificarCargaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.modificarLocalizacionToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.historicoDeCargasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.verificarEmpalmeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -110,7 +111,7 @@
             this.labelingToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelingToolStripMenuItem.ForeColor = System.Drawing.Color.Black;
             this.labelingToolStripMenuItem.Name = "labelingToolStripMenuItem";
-            this.labelingToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.labelingToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
             this.labelingToolStripMenuItem.Text = "Etiquetar";
             this.labelingToolStripMenuItem.Click += new System.EventHandler(this.labelingToolStripMenuItem_Click);
             // 
@@ -124,7 +125,7 @@
             this.consolidationToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.consolidationToolStripMenuItem.ForeColor = System.Drawing.Color.Black;
             this.consolidationToolStripMenuItem.Name = "consolidationToolStripMenuItem";
-            this.consolidationToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.consolidationToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
             this.consolidationToolStripMenuItem.Text = "Empalmes";
             // 
             // createToolStripMenuItem
@@ -132,7 +133,7 @@
             this.createToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
             this.createToolStripMenuItem.ForeColor = System.Drawing.Color.Black;
             this.createToolStripMenuItem.Name = "createToolStripMenuItem";
-            this.createToolStripMenuItem.Size = new System.Drawing.Size(191, 26);
+            this.createToolStripMenuItem.Size = new System.Drawing.Size(190, 26);
             this.createToolStripMenuItem.Text = "Crear";
             this.createToolStripMenuItem.Click += new System.EventHandler(this.createToolStripMenuItem_Click);
             // 
@@ -141,14 +142,14 @@
             this.reviseToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
             this.reviseToolStripMenuItem.ForeColor = System.Drawing.Color.Black;
             this.reviseToolStripMenuItem.Name = "reviseToolStripMenuItem";
-            this.reviseToolStripMenuItem.Size = new System.Drawing.Size(191, 26);
+            this.reviseToolStripMenuItem.Size = new System.Drawing.Size(190, 26);
             this.reviseToolStripMenuItem.Text = "Validar";
             this.reviseToolStripMenuItem.Click += new System.EventHandler(this.reviseToolStripMenuItem_Click);
             // 
             // lotesParcialesToolStripMenuItem
             // 
             this.lotesParcialesToolStripMenuItem.Name = "lotesParcialesToolStripMenuItem";
-            this.lotesParcialesToolStripMenuItem.Size = new System.Drawing.Size(191, 26);
+            this.lotesParcialesToolStripMenuItem.Size = new System.Drawing.Size(190, 26);
             this.lotesParcialesToolStripMenuItem.Text = "Lotes Parciales";
             this.lotesParcialesToolStripMenuItem.Click += new System.EventHandler(this.lotesParcialesToolStripMenuItem_Click);
             // 
@@ -158,7 +159,7 @@
             this.cargarToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cargarToolStripMenuItem.ForeColor = System.Drawing.Color.Black;
             this.cargarToolStripMenuItem.Name = "cargarToolStripMenuItem";
-            this.cargarToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.cargarToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
             this.cargarToolStripMenuItem.Text = "Cargar";
             this.cargarToolStripMenuItem.Click += new System.EventHandler(this.cargarToolStripMenuItem_Click);
             // 
@@ -166,7 +167,7 @@
             // 
             this.regresarLoteToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.regresarLoteToolStripMenuItem.Name = "regresarLoteToolStripMenuItem";
-            this.regresarLoteToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.regresarLoteToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
             this.regresarLoteToolStripMenuItem.Text = "Regresar Lote";
             this.regresarLoteToolStripMenuItem.Click += new System.EventHandler(this.regresarLoteToolStripMenuItem_Click);
             // 
@@ -174,7 +175,7 @@
             // 
             this.fedexToolStripMenuItem1.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.fedexToolStripMenuItem1.Name = "fedexToolStripMenuItem1";
-            this.fedexToolStripMenuItem1.Size = new System.Drawing.Size(224, 26);
+            this.fedexToolStripMenuItem1.Size = new System.Drawing.Size(184, 26);
             this.fedexToolStripMenuItem1.Text = "Fedex";
             this.fedexToolStripMenuItem1.Click += new System.EventHandler(this.fedexToolStripMenuItem1_Click);
             // 
@@ -191,7 +192,7 @@
             // 
             this.pisoToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pisoToolStripMenuItem.Name = "pisoToolStripMenuItem";
-            this.pisoToolStripMenuItem.Size = new System.Drawing.Size(120, 26);
+            this.pisoToolStripMenuItem.Size = new System.Drawing.Size(119, 26);
             this.pisoToolStripMenuItem.Text = "Piso";
             this.pisoToolStripMenuItem.Click += new System.EventHandler(this.pisoToolStripMenuItem_Click);
             // 
@@ -200,6 +201,7 @@
             this.supervisionToolStripMenuItem.BackColor = System.Drawing.Color.DarkGray;
             this.supervisionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.retrabajarCargaToolStripMenuItem1,
+            this.modificarCargaToolStripMenuItem,
             this.modificarLocalizacionToolStripMenuItem1,
             this.historicoDeCargasToolStripMenuItem,
             this.verificarEmpalmeToolStripMenuItem,
@@ -217,15 +219,23 @@
             // 
             this.retrabajarCargaToolStripMenuItem1.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.retrabajarCargaToolStripMenuItem1.Name = "retrabajarCargaToolStripMenuItem1";
-            this.retrabajarCargaToolStripMenuItem1.Size = new System.Drawing.Size(246, 26);
+            this.retrabajarCargaToolStripMenuItem1.Size = new System.Drawing.Size(245, 26);
             this.retrabajarCargaToolStripMenuItem1.Text = "Retrabajar Carga";
             this.retrabajarCargaToolStripMenuItem1.Click += new System.EventHandler(this.retrabajarCargaToolStripMenuItem1_Click);
+            // 
+            // modificarCargaToolStripMenuItem
+            // 
+            this.modificarCargaToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.modificarCargaToolStripMenuItem.Name = "modificarCargaToolStripMenuItem";
+            this.modificarCargaToolStripMenuItem.Size = new System.Drawing.Size(245, 26);
+            this.modificarCargaToolStripMenuItem.Text = "Modificar Carga";
+            this.modificarCargaToolStripMenuItem.Click += new System.EventHandler(this.modificarCargaToolStripMenuItem_Click);
             // 
             // modificarLocalizacionToolStripMenuItem1
             // 
             this.modificarLocalizacionToolStripMenuItem1.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.modificarLocalizacionToolStripMenuItem1.Name = "modificarLocalizacionToolStripMenuItem1";
-            this.modificarLocalizacionToolStripMenuItem1.Size = new System.Drawing.Size(246, 26);
+            this.modificarLocalizacionToolStripMenuItem1.Size = new System.Drawing.Size(245, 26);
             this.modificarLocalizacionToolStripMenuItem1.Text = "Modificar localizacion";
             this.modificarLocalizacionToolStripMenuItem1.Click += new System.EventHandler(this.modificarLocalizacionToolStripMenuItem1_Click);
             // 
@@ -233,7 +243,7 @@
             // 
             this.historicoDeCargasToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.historicoDeCargasToolStripMenuItem.Name = "historicoDeCargasToolStripMenuItem";
-            this.historicoDeCargasToolStripMenuItem.Size = new System.Drawing.Size(246, 26);
+            this.historicoDeCargasToolStripMenuItem.Size = new System.Drawing.Size(245, 26);
             this.historicoDeCargasToolStripMenuItem.Text = "Historico de Cargas";
             this.historicoDeCargasToolStripMenuItem.Click += new System.EventHandler(this.historicoDeCargasToolStripMenuItem_Click);
             // 
@@ -241,7 +251,7 @@
             // 
             this.verificarEmpalmeToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.verificarEmpalmeToolStripMenuItem.Name = "verificarEmpalmeToolStripMenuItem";
-            this.verificarEmpalmeToolStripMenuItem.Size = new System.Drawing.Size(246, 26);
+            this.verificarEmpalmeToolStripMenuItem.Size = new System.Drawing.Size(245, 26);
             this.verificarEmpalmeToolStripMenuItem.Text = "Verificar empalme";
             this.verificarEmpalmeToolStripMenuItem.Click += new System.EventHandler(this.verificarEmpalmeToolStripMenuItem_Click);
             // 
@@ -249,7 +259,7 @@
             // 
             this.usuariosToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.usuariosToolStripMenuItem.Name = "usuariosToolStripMenuItem";
-            this.usuariosToolStripMenuItem.Size = new System.Drawing.Size(246, 26);
+            this.usuariosToolStripMenuItem.Size = new System.Drawing.Size(245, 26);
             this.usuariosToolStripMenuItem.Text = "Usuarios";
             this.usuariosToolStripMenuItem.Click += new System.EventHandler(this.usuariosToolStripMenuItem_Click);
             // 
@@ -257,7 +267,7 @@
             // 
             this.modificarDeTarimasToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.modificarDeTarimasToolStripMenuItem.Name = "modificarDeTarimasToolStripMenuItem";
-            this.modificarDeTarimasToolStripMenuItem.Size = new System.Drawing.Size(246, 26);
+            this.modificarDeTarimasToolStripMenuItem.Size = new System.Drawing.Size(245, 26);
             this.modificarDeTarimasToolStripMenuItem.Text = "Modificar # de tarimas";
             this.modificarDeTarimasToolStripMenuItem.Click += new System.EventHandler(this.modificarDeTarimasToolStripMenuItem_Click);
             // 
@@ -265,7 +275,7 @@
             // 
             this.noCargarLoteToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.noCargarLoteToolStripMenuItem.Name = "noCargarLoteToolStripMenuItem";
-            this.noCargarLoteToolStripMenuItem.Size = new System.Drawing.Size(246, 26);
+            this.noCargarLoteToolStripMenuItem.Size = new System.Drawing.Size(245, 26);
             this.noCargarLoteToolStripMenuItem.Text = "No cargar Lote";
             this.noCargarLoteToolStripMenuItem.Click += new System.EventHandler(this.noCargarLoteToolStripMenuItem_Click);
             // 
@@ -273,7 +283,7 @@
             // 
             this.graficasToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.graficasToolStripMenuItem.Name = "graficasToolStripMenuItem";
-            this.graficasToolStripMenuItem.Size = new System.Drawing.Size(246, 26);
+            this.graficasToolStripMenuItem.Size = new System.Drawing.Size(245, 26);
             this.graficasToolStripMenuItem.Text = "Graficas";
             this.graficasToolStripMenuItem.Click += new System.EventHandler(this.graficasToolStripMenuItem_Click);
             // 
@@ -281,7 +291,7 @@
             // 
             this.subirFedexToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.subirFedexToolStripMenuItem.Name = "subirFedexToolStripMenuItem";
-            this.subirFedexToolStripMenuItem.Size = new System.Drawing.Size(246, 26);
+            this.subirFedexToolStripMenuItem.Size = new System.Drawing.Size(245, 26);
             this.subirFedexToolStripMenuItem.Text = "Subir Fedex";
             this.subirFedexToolStripMenuItem.Click += new System.EventHandler(this.subirFedexToolStripMenuItem_Click);
             // 
@@ -289,7 +299,7 @@
             // 
             this.cerrarCajaToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cerrarCajaToolStripMenuItem.Name = "cerrarCajaToolStripMenuItem";
-            this.cerrarCajaToolStripMenuItem.Size = new System.Drawing.Size(246, 26);
+            this.cerrarCajaToolStripMenuItem.Size = new System.Drawing.Size(245, 26);
             this.cerrarCajaToolStripMenuItem.Text = "Cerrar Caja";
             this.cerrarCajaToolStripMenuItem.Click += new System.EventHandler(this.cerrarCajaToolStripMenuItem_Click);
             // 
@@ -311,7 +321,7 @@
             // 
             this.generalToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.generalToolStripMenuItem.Name = "generalToolStripMenuItem";
-            this.generalToolStripMenuItem.Size = new System.Drawing.Size(253, 26);
+            this.generalToolStripMenuItem.Size = new System.Drawing.Size(252, 26);
             this.generalToolStripMenuItem.Text = "General";
             this.generalToolStripMenuItem.Click += new System.EventHandler(this.generalToolStripMenuItem_Click);
             // 
@@ -319,7 +329,7 @@
             // 
             this.embarcadoToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.embarcadoToolStripMenuItem.Name = "embarcadoToolStripMenuItem";
-            this.embarcadoToolStripMenuItem.Size = new System.Drawing.Size(253, 26);
+            this.embarcadoToolStripMenuItem.Size = new System.Drawing.Size(252, 26);
             this.embarcadoToolStripMenuItem.Text = "Embarcado";
             this.embarcadoToolStripMenuItem.Click += new System.EventHandler(this.embarcadoToolStripMenuItem_Click);
             // 
@@ -327,7 +337,7 @@
             // 
             this.loteToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.loteToolStripMenuItem.Name = "loteToolStripMenuItem";
-            this.loteToolStripMenuItem.Size = new System.Drawing.Size(253, 26);
+            this.loteToolStripMenuItem.Size = new System.Drawing.Size(252, 26);
             this.loteToolStripMenuItem.Text = "Lote";
             this.loteToolStripMenuItem.Click += new System.EventHandler(this.loteToolStripMenuItem_Click);
             // 
@@ -335,14 +345,14 @@
             // 
             this.fedexToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.fedexToolStripMenuItem.Name = "fedexToolStripMenuItem";
-            this.fedexToolStripMenuItem.Size = new System.Drawing.Size(253, 26);
+            this.fedexToolStripMenuItem.Size = new System.Drawing.Size(252, 26);
             this.fedexToolStripMenuItem.Text = "Fedex";
             this.fedexToolStripMenuItem.Click += new System.EventHandler(this.fedexToolStripMenuItem_Click);
             // 
             // reumenDeEmbarquesToolStripMenuItem
             // 
             this.reumenDeEmbarquesToolStripMenuItem.Name = "reumenDeEmbarquesToolStripMenuItem";
-            this.reumenDeEmbarquesToolStripMenuItem.Size = new System.Drawing.Size(253, 26);
+            this.reumenDeEmbarquesToolStripMenuItem.Size = new System.Drawing.Size(252, 26);
             this.reumenDeEmbarquesToolStripMenuItem.Text = "Reumen de Embarques";
             this.reumenDeEmbarquesToolStripMenuItem.Click += new System.EventHandler(this.reumenDeEmbarquesToolStripMenuItem_Click);
             // 
@@ -361,7 +371,7 @@
             // 
             this.manualToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.manualToolStripMenuItem.Name = "manualToolStripMenuItem";
-            this.manualToolStripMenuItem.Size = new System.Drawing.Size(276, 26);
+            this.manualToolStripMenuItem.Size = new System.Drawing.Size(275, 26);
             this.manualToolStripMenuItem.Text = "Manual";
             this.manualToolStripMenuItem.Click += new System.EventHandler(this.manualToolStripMenuItem_Click);
             // 
@@ -369,7 +379,7 @@
             // 
             this.acercaDeShippingSystemToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.acercaDeShippingSystemToolStripMenuItem.Name = "acercaDeShippingSystemToolStripMenuItem";
-            this.acercaDeShippingSystemToolStripMenuItem.Size = new System.Drawing.Size(276, 26);
+            this.acercaDeShippingSystemToolStripMenuItem.Size = new System.Drawing.Size(275, 26);
             this.acercaDeShippingSystemToolStripMenuItem.Text = "Acerca de Shipping System";
             this.acercaDeShippingSystemToolStripMenuItem.Click += new System.EventHandler(this.acercaDeShippingSystemToolStripMenuItem_Click);
             // 
@@ -436,7 +446,7 @@
             this.MaximizeBox = false;
             this.Name = "Menu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Menu Shipping System V 1.0.0.2 Debug";
+            this.Text = "Menu Shipping System V 1.0.0.3 Debug";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Menu_FormClosed);
             this.Load += new System.EventHandler(this.Menu_Load);
             this.menuStrip1.ResumeLayout(false);
@@ -488,5 +498,6 @@
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.ToolStripMenuItem cerrarCajaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem reumenDeEmbarquesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem modificarCargaToolStripMenuItem;
     }
 }

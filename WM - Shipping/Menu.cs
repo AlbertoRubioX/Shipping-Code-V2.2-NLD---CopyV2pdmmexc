@@ -232,5 +232,12 @@ namespace WindowsFormsApplication1
             ReporteEmbarcadoRes RembarcadoRes = new ReporteEmbarcadoRes();
             RembarcadoRes.ShowDialog();
         }
+
+        private void modificarCargaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            crear_carga editacarga = new crear_carga();
+            editacarga._bEdit = true;
+            editacarga.ShowDialog();
+        }
     }
 }

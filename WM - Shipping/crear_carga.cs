@@ -17,16 +17,63 @@ namespace WindowsFormsApplication1
             InitializeComponent();
         }
         Datos Consultar = new Datos();
-
-        public static string grabada="N", num_carga1, numero_caja1;
-        public string rampa, rampa_vacia1 ="Y";
+        
+        public static string grabada="N", num_carga1, numero_caja1, ciclo,destino,notas,loc;
+        public string rampa, rampa_vacia1 ="Y",_NoCaja;
         public int idcarga;
+        public bool _bEdit =false;
+
+       
 
         private void crear_carga_Load(object sender, EventArgs e)
         {
             LlenarComboRampa();
             LlenarComboDestino();
             LlenarComboCiclo();
+
+            if (_bEdit)
+            {
+                lblCarga.Visible = true;
+                txtcarga.Visible = true;
+                btnBuscar.Visible = true;
+
+                cbrampa.Enabled = false;
+                cbdestino.Enabled = false;
+            }
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+
+            if (txtcarga.Text == "")
+            {
+                MessageBox.Show("Introduzca el numero de carga", "Verificar", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                txtcarga.Focus();
+            }
+            else
+            {
+                txtcaja1.Clear();
+                cbrampa.SelectedIndex = 0;
+                cbciclo.SelectedIndex = 0;
+                cbdestino.SelectedIndex = 0;
+                txtnotas.Clear();
+
+                if (Consultar.M3carganota(ref _NoCaja, ref destino, ref ciclo, ref rampa, ref notas, ref loc, txtcarga.Text.ToString()) == true)
+                {
+                    txtcaja1.Text = _NoCaja;
+                    cbciclo.SelectedValue = ciclo;
+                    cbdestino.SelectedValue = destino;
+                    cbrampa.SelectedValue = rampa;
+                    txtnotas.Text = notas;
+
+                }
+                else
+                {
+                    MessageBox.Show("Carga no disponible para edición", Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    txtcarga.Clear();
+                    txtcarga.Focus();
+                }
+            }
         }
         private void rampa_vacia(object sender, EventArgs e)
         {
@@ -82,10 +129,28 @@ namespace WindowsFormsApplication1
             }
             else
             {
-                rampa_vacia(sender, e);
-                if (rampa_vacia1 == "Y")
+                if (_bEdit)
                 {
+                    int iCarga = int.Parse(txtcarga.Text.ToString());
+                    if(Consultar.ActualizaCaja(txtcaja1.Text, Convert.ToString(cbciclo.SelectedValue), txtnotas.Text, iCarga) > 0)
+                    {
+                        MessageBox.Show("Carga " + txtcarga.Text.ToString() + " Actualizada", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        numero_caja1 = txtcaja1.Text;
 
+                        Verificacion_de_caja verificar1 = new Verificacion_de_caja();
+                        verificar1._NoCaja = txtcaja1.Text.ToString();
+                        verificar1.idcarga = iCarga;
+
+                        verificar1.ShowDialog();
+
+                        this.Close();
+                    }
+                }
+                else
+                {
+                    rampa_vacia(sender, e);
+                    if (rampa_vacia1 == "Y")
+                    {
                         Consultar.InsertCaja(txtcaja1.Text, Convert.ToString(cbciclo.SelectedValue), Convert.ToString(cbdestino.SelectedValue), Convert.ToInt32(cbrampa.SelectedValue), txtnotas.Text, GlobalVar.Compania);
                         Consultar.ObtenerIdCarga(txtcaja1.Text, ref idcarga, GlobalVar.Compania);
                         num_c = idcarga;
@@ -98,9 +163,10 @@ namespace WindowsFormsApplication1
                             this.Close();
                         }
                     }
-                else
-                {
-                    MessageBox.Show("Rampa seleccionada esta actualemte con carga en proceso", "Verificar", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    else
+                    {
+                        MessageBox.Show("Rampa seleccionada esta actualemte con carga en proceso", "Verificar", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
             }
          

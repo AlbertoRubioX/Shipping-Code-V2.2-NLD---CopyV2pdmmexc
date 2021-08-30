@@ -29,6 +29,7 @@ namespace WindowsFormsApplication1
             {
                 this.Consultar.RetrabajarCarga(txtcarga.Text, GlobalVar.Compania);
                 MessageBox.Show("Carga lista para retrabajarse", "Completo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+
                 this.txtcarga.Text = "";
             }
 

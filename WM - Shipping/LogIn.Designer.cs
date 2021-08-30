@@ -125,9 +125,9 @@
             this.label1.Location = new System.Drawing.Point(16, 492);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(110, 17);
+            this.label1.Size = new System.Drawing.Size(98, 17);
             this.label1.TabIndex = 5;
-            this.label1.Text = "V 1.0.0.2 SQL";
+            this.label1.Text = "V -.-.-.- SQL";
             // 
             // cbxcompania
             // 
@@ -184,7 +184,7 @@
             this.MaximizeBox = false;
             this.Name = "LogIn";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Menu Shipping System V 1.0.0.2 SQL";
+            this.Text = "Menu Shipping System V 1.0.0.3 Debug";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.LogIn_FormClosed);
             this.Load += new System.EventHandler(this.LogIn_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

@@ -156,19 +156,19 @@ namespace WindowsFormsApplication1
                         switch (i)
                         {
                             case 0:
-                                Consultar.InsertarRegQuiebre('0', lote, Convert.ToInt32(WO), tray, Convert.ToInt32(txttarima1.Text), Convert.ToInt32(txttarima2.Text), Convert.ToInt32(txt_p2.Text), localizacion, destino, ciclo, GlobalVar.nombre_user, GlobalVar.Compania);
+                                Consultar.InsertarRegQuiebre('0', lote, Convert.ToInt32(WO), tray, Convert.ToInt32(txttarima1.Text), Convert.ToInt32(txttarima2.Text), Convert.ToInt32(txt_p2.Text), localizacion, destino, ciclo, GlobalVar.nombre_user, GlobalVar.Compania,0);
                                 break;
 
                             case 1:
-                                Consultar.InsertarRegQuiebre('1', lote, Convert.ToInt32(WO), tray, Convert.ToInt32(txttarima1.Text), Convert.ToInt32(txttarima2.Text), Convert.ToInt32(txt_p3.Text), localizacion, destino, ciclo, GlobalVar.nombre_user, GlobalVar.Compania);
+                                Consultar.InsertarRegQuiebre('1', lote, Convert.ToInt32(WO), tray, Convert.ToInt32(txttarima1.Text), Convert.ToInt32(txttarima2.Text), Convert.ToInt32(txt_p3.Text), localizacion, destino, ciclo, GlobalVar.nombre_user, GlobalVar.Compania,0);
                                 break;
 
                             case 2:
-                                Consultar.InsertarRegQuiebre('2', lote, Convert.ToInt32(WO), tray, Convert.ToInt32(txttarima1.Text), Convert.ToInt32(txttarima2.Text), Convert.ToInt32(txt_p4.Text), localizacion, destino, ciclo, GlobalVar.nombre_user, GlobalVar.Compania);
+                                Consultar.InsertarRegQuiebre('2', lote, Convert.ToInt32(WO), tray, Convert.ToInt32(txttarima1.Text), Convert.ToInt32(txttarima2.Text), Convert.ToInt32(txt_p4.Text), localizacion, destino, ciclo, GlobalVar.nombre_user, GlobalVar.Compania,0);
                                 break;
 
                             case 3:
-                                Consultar.InsertarRegQuiebre('3', lote, Convert.ToInt32(WO), tray, Convert.ToInt32(txttarima1.Text), Convert.ToInt32(txttarima2.Text), Convert.ToInt32(txt_p5.Text), localizacion, destino, ciclo, GlobalVar.nombre_user, GlobalVar.Compania);
+                                Consultar.InsertarRegQuiebre('3', lote, Convert.ToInt32(WO), tray, Convert.ToInt32(txttarima1.Text), Convert.ToInt32(txttarima2.Text), Convert.ToInt32(txt_p5.Text), localizacion, destino, ciclo, GlobalVar.nombre_user, GlobalVar.Compania,0);
                                 break;
 
                             default:

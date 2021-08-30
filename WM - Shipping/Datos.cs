@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using System.Data.Odbc;
 
 namespace WindowsFormsApplication1
 {
@@ -708,6 +709,36 @@ namespace WindowsFormsApplication1
             }
         }
 
+        public int ActualizaCaja(string caja,string ciclo,string Notas, int idcaja)
+        {
+            int ireturn = 0;
+            Conexion = new SqlConnection();
+            Conexion.ConnectionString = CadenaCon;
+            string strSQL = "Update Cajas set Caja = '" + @caja + "',Ciclo = '" + @ciclo + "',Notas = '" + @Notas + "' where Id_Carga = " + @idcaja + " and Compania = " + GlobalVar.Compania + " ";
+            SqlCommand cmd = new SqlCommand(strSQL, Conexion);
+            try
+            {
+                Conexion.Open();
+                cmd.Parameters.AddWithValue("_caja", caja.Trim());
+                cmd.Parameters.AddWithValue("_ciclo", ciclo.Trim());
+                cmd.Parameters.AddWithValue("_notas", Notas.Trim());
+                cmd.Parameters.AddWithValue("_idcaja", idcaja);
+
+                ireturn = cmd.ExecuteNonQuery();
+            }
+            catch (Exception Error)
+            {
+                MessageBox.Show("Error" + Environment.NewLine + Error.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ireturn = -1;
+            }
+            finally
+            {
+                Conexion.Close();
+                Conexion.Dispose();
+            }
+            return ireturn;
+        }
+
         public DataTable HistoricoCarga(string mapa, int compania)
         {
             Conexion = new SqlConnection();
@@ -927,11 +958,11 @@ namespace WindowsFormsApplication1
             }
         }
 
-        public void InsertarRegQuiebre(int Case, string Lote, int Wo, string Tray, int Ntarimas, int TotalTarimas, int QtyCaja, string Loc, string Dest, string Ciclo, int UserRecibe, int Compania)
+        public void InsertarRegQuiebre(int Case, string Lote, int Wo, string Tray, int Ntarimas, int TotalTarimas, int QtyCaja, string Loc, string Dest, string Ciclo, int UserRecibe, int Compania, int Kits)
         {
             this.Conexion = new SqlConnection();
             this.Conexion.ConnectionString = CadenaCon;
-            string strSQL = "EXEC ShipCaseparciales @_Case, @_Lote, @_Wo, @_Tray, @_Ntarimas, @_TotalTarimas, @_QtyCaja, @_Loc, @_DEst, @_Ciclo,@_UserRecibe,@_Compania";
+            string strSQL = "EXEC ShipCaseparciales @_Case, @_Lote, @_Wo, @_Tray, @_Ntarimas, @_TotalTarimas, @_QtyCaja, @_Loc, @_DEst, @_Ciclo,@_UserRecibe,@_Compania,@_Kits";
             SqlCommand cmd = new SqlCommand(strSQL, Conexion);
             try
             {
@@ -948,6 +979,7 @@ namespace WindowsFormsApplication1
                 cmd.Parameters.AddWithValue("_Ciclo", Ciclo.Trim());
                 cmd.Parameters.AddWithValue("_UserRecibe", UserRecibe);
                 cmd.Parameters.AddWithValue("_Compania", Compania);
+                cmd.Parameters.AddWithValue("_Kits", Kits);
                 cmd.ExecuteNonQuery();
             }
             catch (Exception Error)
@@ -994,7 +1026,7 @@ namespace WindowsFormsApplication1
                 Conexion.Close();
             }
         }
-
+       
         public bool M3LabelLote(string lote)
         {
             Conexion = new SqlConnection();
@@ -1871,11 +1903,13 @@ namespace WindowsFormsApplication1
             
         }
 
-        public void M3ModificarMapa(string idcarga, int posicion, int cajasch, double cbfn, int idtarima1)
+        public void M3ModificarMapa(string idcarga, int posicion, int cajasch, double cbfn, int idtarima1,string ind_esteril)
         {
             Conexion = new SqlConnection();
             Conexion.ConnectionString = CadenaCon;
-            string strSQL = "Update inventario set id_carga = '"+ @idcarga + "' , posicion = "+ @posicion + ", user_carga = "+ GlobalVar.nombre_user + ", fecha_carga = getdate(),localizacion='cargado',verificador=1, qty_cajas= " + @cajasch +",cbf='" + @cbfn + "' where id_tarima= "+ @idtarima1 + " and compania = "+ GlobalVar.Compania +" ";
+            string strSQL = "Update inventario set id_carga = '"+ @idcarga + "' , posicion = "+ @posicion + ", user_carga = "+ GlobalVar.nombre_user + ", " +
+                "fecha_carga = getdate(),localizacion='cargado',verificador=1, qty_cajas= " + @cajasch +",cbf='" + @cbfn + "', Ind_esteril = '"+ind_esteril+"' " +
+                "where id_tarima= "+ @idtarima1 + " and compania = "+ GlobalVar.Compania +" ";
             SqlCommand cmd = new SqlCommand(strSQL, Conexion);
             try
             {
@@ -1884,6 +1918,7 @@ namespace WindowsFormsApplication1
                 cmd.Parameters.AddWithValue("_posicion", posicion);
                 cmd.Parameters.AddWithValue("_cajasch", cajasch);
                 cmd.Parameters.AddWithValue("_cbfn", cbfn);
+                cmd.Parameters.AddWithValue("_ind_esteril", ind_esteril);
                 cmd.Parameters.AddWithValue("_idtarima1", idtarima1);
                 cmd.ExecuteNonQuery();
             }
@@ -2093,7 +2128,7 @@ namespace WindowsFormsApplication1
             
         }
 
-        public bool ConfigSMTP(ref string server,ref string smtp_user,ref int puerto,ref string mapa,ref string discre)
+        public bool ConfigSMTP(ref string server,ref string smtp_user,ref int puerto,ref string mapa,ref string discre,ref string checklist,ref string mapa_merge,ref string mapaexcel,ref string mapalayout)
         {
 
             Conexion = new SqlConnection();
@@ -2117,6 +2152,10 @@ namespace WindowsFormsApplication1
                     puerto = int.Parse(dr["puerto"].ToString());
                     mapa = dr["mapa_file"].ToString().Trim();
                     discre = dr["discre_file"].ToString().Trim();
+                    checklist = dr["checklist_file"].ToString().Trim();
+                    mapa_merge = dr["mapamerge_file"].ToString().Trim();
+                    mapaexcel = dr["mapaexcel_file"].ToString().Trim();
+                    mapalayout = dr["mapaexc_layout"].ToString().Trim();
                     return true;
                 }
             }
@@ -3120,6 +3159,145 @@ namespace WindowsFormsApplication1
                 Conexion.Dispose();
             }
         }
+        public int M1LabelLoteTarima(string lote)
+        {
+            int iCant = 0;
+            Conexion = new SqlConnection();
+            Conexion.ConnectionString = CadenaCon;
+            string strSQL = "select count(Id_Tarima) from Inventario where Lote= '" + @lote + "' and Compania= '" + GlobalVar.Compania + "' ";
+            SqlCommand cmd = new SqlCommand(strSQL, this.Conexion);
+            SqlDataReader dr = null;
+            try
+            {
+                this.Conexion.Open();
+                dr = cmd.ExecuteReader();
+                if (dr.HasRows)
+                {
+                    dr.Read();
+                    iCant = (Int32)dr[0];
+                }
+                else
+                    iCant = -1;
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("Error" + exception.Message);
+            }
+            finally
+            {
+                dr.Close();
+                Conexion.Close();
+            }
 
+            return iCant;
+        }
+        public bool M1LabelLoteCompleto(string lote)
+        {
+
+            Conexion = new SqlConnection();
+            Conexion.ConnectionString = CadenaCon;
+            string strSQL = "select count(*),Total_tarimas from Inventario where Lote= '" + @lote + "' and Compania= '" + GlobalVar.Compania + "' group by Total_tarimas having count (*) = Total_tarimas";
+            SqlCommand cmd = new SqlCommand(strSQL, this.Conexion);
+            SqlDataReader dr = null;
+            try
+            {
+                this.Conexion.Open();
+                cmd.Parameters.AddWithValue("_lote", lote);
+                dr = cmd.ExecuteReader();
+                if (!dr.HasRows)
+                {
+                    return false;
+                }
+                else
+                {
+                    dr.Read();
+                    return true;
+                }
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("Error" + exception.Message);
+            }
+            finally
+            {
+                dr.Close();
+                Conexion.Close();
+            }
+        }
+
+        public bool LoteCicloDistintos(ref ArrayList lotM3, ref ArrayList conteosM3, ref ArrayList totalsM3, string Carga)
+        {
+            Conexion = new SqlConnection();
+            Conexion.ConnectionString = CadenaCon;
+            string strSQL = "Select case c.Ciclo when 'NO-ESTERIL' then '0' else '1' end as esteril , i.Lote,count(i.Num_Tarima) as tarimas,i.Ind_esteril   " +
+                "FROM Inventario i inner join Cajas c on i.Id_Carga = c.Id_Carga " +
+                "WHERE i.Id_Carga = " + @Carga + " and i.Compania = " + GlobalVar.Compania + " AND  i.Ind_esteril <> case c.Ciclo when 'NO-ESTERIL' then '0' else '1' end  " +
+                "GROUP BY c.Ciclo,i.Lote,i.Ind_esteril ORDER BY i.Lote";
+
+            SqlCommand cmd = new SqlCommand(strSQL, this.Conexion);
+            SqlDataReader dr = null;
+            try
+            {
+                cmd.Parameters.AddWithValue("_Carga", Carga.ToString().Trim());
+                Conexion.Open();
+                dr = cmd.ExecuteReader();
+                if (dr.HasRows == true)
+                {
+                    while (dr.Read())
+                    {
+                        lotM3.Add(dr[1]);
+                        conteosM3.Add(dr[2]);
+                        totalsM3.Add(dr[3]);
+                    }
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("Error No se completo operacion " + exception);
+            }
+            finally
+            {
+                dr.Close();
+                Conexion.Close();
+            }
+
+        }
+
+        public DataTable M3GetMapa(string _sCarga)
+        {
+            DataTable data = new DataTable();
+            SqlConnection con = new SqlConnection();
+            try
+            {
+                int idcarga = int.Parse(_sCarga);
+                string strSQL = "Select c.Id_Carga, posicion,tray,WO,lote,qty_cajas,i.Kits_box, cast(num_tarima as varchar)+ ' - '+cast(total_tarimas as varchar)as tarima, user_carga ,c.Caja,c.Notas,c.Destino,c.Rampa " +
+                "from inventario i inner join Cajas c on i.Id_Carga = c.Id_Carga " +
+                "where c.id_carga=" + @idcarga + "  and c.Compania= " + GlobalVar.Compania + " order by i.posicion asc";
+
+                using (con = new SqlConnection(CadenaCon))
+                {
+                    con.Open();
+                    using (SqlDataAdapter da = new SqlDataAdapter(strSQL, con))
+                    {
+                        da.Fill(data);
+                    }
+                }
+            }
+            catch (Exception Error)
+            {
+                throw new Exception("No hay Carga" + Error);
+            }
+            finally
+            {
+                con.Close();
+            }
+
+            return data;
+        }
     }
 }

@@ -33,6 +33,99 @@ namespace WindowsFormsApplication1
 
         private OleDbConnection Conexion;
 
+        public void CrearMapaExcel(string _sFile,System.Data.DataTable _data,string _sPath)
+        {
+            Excel.Application xlApp = new Excel.Application();
+            xlApp.AskToUpdateLinks = false;
+            Excel.Workbooks xlWorkbookS = xlApp.Workbooks;
+
+            string sFile = _sPath + "\\" + _sFile;
+            Excel.Workbook xlWorkbook = xlWorkbookS.Open(sFile);
+            Excel.Worksheet xlWorksheet = new Excel.Worksheet();
+
+            try
+            {
+                string sValue = string.Empty;
+
+                int iSheets = xlWorkbook.Sheets.Count;
+                int iSheet = 1;
+
+                xlWorksheet = xlWorkbook.Sheets[iSheet];
+                Excel.Range xlRange = xlWorksheet.UsedRange;
+                
+                int rowCount = xlRange.Rows.Count;
+                int colCount = xlRange.Columns.Count;
+
+                string sMapa = string.Empty;
+                string sDestino = string.Empty,sCaja = string.Empty,sPO = string.Empty;
+                int iRampa=0, iCajas=0,iKits=0;
+                int i = 13;
+                for (int x = 0; x < _data.Rows.Count; x++)
+                {
+                    sMapa = _data.Rows[x][0].ToString();
+
+                    int iPos = int.Parse(_data.Rows[x][1].ToString());
+                    string sProd = _data.Rows[x][2].ToString();
+                    string sWO = _data.Rows[x][3].ToString();
+                    string sLote = _data.Rows[x][4].ToString();
+                    int iCaja = int.Parse(_data.Rows[x][5].ToString());
+                    if(!int.TryParse(_data.Rows[x][6].ToString(),out iKits))
+                        iKits = 0;
+                    string sTarimas = _data.Rows[x][7].ToString();
+                    string sCargador = _data.Rows[x][8].ToString();
+
+                    sCaja = _data.Rows[x][9].ToString();
+                    sPO = _data.Rows[x][10].ToString();
+                    sDestino = _data.Rows[x][11].ToString();
+                    iRampa = int.Parse(_data.Rows[x][12].ToString());
+
+                    if (iKits > 0)
+                        iKits = iCaja * iKits;
+
+                    xlRange.Cells[i, 1].Value2 = iPos;
+                    xlRange.Cells[i, 2].Value2 = sProd;
+                    xlRange.Cells[i, 3].Value2 = sWO;
+                    xlRange.Cells[i, 4].Value2 = sLote;
+                    xlRange.Cells[i, 5].Value2 = iCaja;
+                    xlRange.Cells[i, 6].Value2 = iKits;
+                    xlRange.Cells[i, 7].Value2 = sTarimas;
+                    xlRange.Cells[i, 8].Value2 = sCargador;
+
+                    i++;
+                    iCajas += iCaja;
+                }
+                xlRange.Cells[5, 2].Value2 = sMapa;
+
+                xlRange.Cells[6, 2].Value2 = sCaja;
+                xlRange.Cells[6, 5].Value2 = sPO;
+                xlRange.Cells[6, 7].Value2 = sDestino;
+
+                xlRange.Cells[9, 2].Value2 = iRampa;
+                xlRange.Cells[9, 5].Value2 = iCajas;
+
+                sFile = _sPath + "\\MAPA " + sMapa + ".xlsx";
+            }
+            catch (Exception Error)
+            {
+                throw new Exception("Error: " + Error.Message);
+            }
+            finally
+            {
+                Marshal.ReleaseComObject(xlWorksheet);
+                Marshal.ReleaseComObject(xlWorkbookS);
+                
+                xlApp.DisplayAlerts = false;
+                xlWorkbook.SaveAs(sFile);
+                xlWorkbook.Close(true);
+
+                xlApp.DisplayAlerts = true;
+                xlApp.Quit();
+                Marshal.ReleaseComObject(xlApp);
+                xlApp = null;
+            }
+
+        }
+
         public void CrearArchivoExcel(string NombreArchivo, System.Data.DataTable dtInfo, string TituloArchivo, BackgroundWorker Proceso)
         {
             Microsoft.Office.Interop.Excel._Application xlApp = null;

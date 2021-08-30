@@ -83,38 +83,49 @@
             this.data_con.Margin = new System.Windows.Forms.Padding(4);
             this.data_con.Name = "data_con";
             this.data_con.ReadOnly = true;
+            this.data_con.RowHeadersWidth = 49;
             this.data_con.Size = new System.Drawing.Size(640, 382);
             this.data_con.TabIndex = 0;
             // 
             // id
             // 
             this.id.HeaderText = "ID";
+            this.id.MinimumWidth = 6;
             this.id.Name = "id";
             this.id.ReadOnly = true;
+            this.id.Width = 120;
             // 
             // Lote
             // 
             this.Lote.HeaderText = "Lote";
+            this.Lote.MinimumWidth = 6;
             this.Lote.Name = "Lote";
             this.Lote.ReadOnly = true;
+            this.Lote.Width = 120;
             // 
             // Cajas
             // 
             this.Cajas.HeaderText = "# Cajas";
+            this.Cajas.MinimumWidth = 6;
             this.Cajas.Name = "Cajas";
             this.Cajas.ReadOnly = true;
+            this.Cajas.Width = 120;
             // 
             // Ciclco
             // 
             this.Ciclco.HeaderText = "Ciclo";
+            this.Ciclco.MinimumWidth = 6;
             this.Ciclco.Name = "Ciclco";
             this.Ciclco.ReadOnly = true;
+            this.Ciclco.Width = 120;
             // 
             // Destino
             // 
             this.Destino.HeaderText = "Destino";
+            this.Destino.MinimumWidth = 6;
             this.Destino.Name = "Destino";
             this.Destino.ReadOnly = true;
+            this.Destino.Width = 120;
             // 
             // btn_add
             // 
@@ -190,7 +201,7 @@
             this.txtTtarimas.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTtarimas.Location = new System.Drawing.Point(458, 64);
             this.txtTtarimas.Name = "txtTtarimas";
-            this.txtTtarimas.Size = new System.Drawing.Size(43, 30);
+            this.txtTtarimas.Size = new System.Drawing.Size(43, 29);
             this.txtTtarimas.TabIndex = 16;
             // 
             // txtntarimas
@@ -198,7 +209,7 @@
             this.txtntarimas.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtntarimas.Location = new System.Drawing.Point(382, 64);
             this.txtntarimas.Name = "txtntarimas";
-            this.txtntarimas.Size = new System.Drawing.Size(43, 30);
+            this.txtntarimas.Size = new System.Drawing.Size(43, 29);
             this.txtntarimas.TabIndex = 15;
             // 
             // label4
@@ -215,9 +226,9 @@
             // 
             this.txtlote.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtlote.Location = new System.Drawing.Point(229, 64);
-            this.txtlote.MaxLength = 8;
+            this.txtlote.MaxLength = 9;
             this.txtlote.Name = "txtlote";
-            this.txtlote.Size = new System.Drawing.Size(137, 30);
+            this.txtlote.Size = new System.Drawing.Size(137, 29);
             this.txtlote.TabIndex = 13;
             this.txtlote.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtlote_KeyPress);
             // 
@@ -251,7 +262,7 @@
             this.cbloc.Location = new System.Drawing.Point(43, 64);
             this.cbloc.Margin = new System.Windows.Forms.Padding(4);
             this.cbloc.Name = "cbloc";
-            this.cbloc.Size = new System.Drawing.Size(160, 26);
+            this.cbloc.Size = new System.Drawing.Size(160, 25);
             this.cbloc.TabIndex = 10;
             // 
             // button1
@@ -281,6 +292,7 @@
             this.grid1.Margin = new System.Windows.Forms.Padding(4);
             this.grid1.Name = "grid1";
             this.grid1.ReadOnly = true;
+            this.grid1.RowHeadersWidth = 49;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
             this.grid1.RowsDefaultCellStyle = dataGridViewCellStyle2;
@@ -292,10 +304,10 @@
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 679);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 678);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
-            this.statusStrip1.Size = new System.Drawing.Size(1339, 25);
+            this.statusStrip1.Size = new System.Drawing.Size(1339, 26);
             this.statusStrip1.TabIndex = 8;
             this.statusStrip1.Text = "statusStrip1";
             // 

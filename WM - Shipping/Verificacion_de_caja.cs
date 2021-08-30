@@ -19,8 +19,8 @@ namespace WindowsFormsApplication1
     {
         Datos Consultar = new Datos();
         public static string n_caja = "",pizq, pder,techo,piso,cambiar;
-        public int verificar = 0,cambiar2=0;
-
+        public int idcarga, verificar = 0,cambiar2=0,puerto;
+        public string server, smtp_user, mapa, discre,checklist,mapamerge,_NoCaja,mapaexcel,mapalayout;
         public Verificacion_de_caja()
         {
             InitializeComponent();
@@ -34,6 +34,11 @@ namespace WindowsFormsApplication1
             }
             else
             {
+                if(GlobalVar.Compania == 686)
+                {
+                    Consultar.ConfigSMTP(ref server, ref smtp_user, ref puerto, ref mapa, ref discre, ref checklist, ref mapamerge,ref mapaexcel,ref mapalayout);
+                }
+
                 if (verificar <= 4)
                 {
                     MessageBox.Show("Es necesario verificar cada seccion de la caja", "Verificar", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -44,7 +49,7 @@ namespace WindowsFormsApplication1
                     Consultar.VerificacionCajaid(Convert.ToInt32(txtid.Text), GlobalVar.Compania);
                     Attachment item = new Attachment(@"\\Mexfp1\Medline\Dept. Recibo & Embarques\Mapas electronicos\Checklist\ChecklistSqltest\Verificacion_#" + txtid.Text + "_cambio.pdf");
                     MailMessage message = new MailMessage("PDMShipping@medline.com", "PDMShipping@medline.com");
-                    message.CC.Add("ctorres@medline.com");
+                    //message.CC.Add("ctorres@medline.com");
                     SmtpClient client = new SmtpClient
                     {
                         Port = 25,
@@ -70,24 +75,28 @@ namespace WindowsFormsApplication1
                 }
                 else if (si5.Checked == true && (GlobalVar.Compania == 686))
                 {
-                    crear_pdf(sender, e);
-                    Consultar.VerificacionCajaid(Convert.ToInt32(txtid.Text), GlobalVar.Compania);
-                    Attachment item = new Attachment(@"\\mxcprdfp1\Software_MXC\ShippingSystem\Mapas_electronicos\Checklistsqltest\Verificacion_#" + txtid.Text + "_cambio.pdf");
-                    MailMessage message = new MailMessage("MXLShipping@medline.com", "MXLShipping@medline.com");
-                    message.CC.Add("ctorres@medline.com");
-                    SmtpClient client2 = new SmtpClient
+                    if (!string.IsNullOrEmpty(server))
                     {
-                        Port = 25,
-                        DeliveryMethod = SmtpDeliveryMethod.Network,
-                        UseDefaultCredentials = false,
-                        Host = "muncasarray1.medline.com"
-                    };
-                    message.Priority = MailPriority.High;
-                    message.Subject = "Shipping SYSTEM       CAJA DANADA: " + txtcaja.Text;
-                    message.Body = "Se ha encontrado una seccion danada en la caja # " + txtcaja.Text + "  (ver adjunto para detalles)";
-                    message.Attachments.Add(item);
-                    client2.Send(message);
-                    this.Close();
+                        crear_pdf(sender, e);
+                        Consultar.VerificacionCajaid(Convert.ToInt32(txtid.Text), GlobalVar.Compania);
+                        //Attachment item = new Attachment(@"\\mxcprdfp1\Software_MXC\ShippingSystem\Mapas_electronicos\Checklistsqltest\Verificacion_#" + txtid.Text + "_cambio.pdf");
+                        Attachment item = new Attachment(checklist + "\\Verificacion_#" + txtid.Text + "_cambio.pdf");
+                        MailMessage message = new MailMessage(smtp_user,smtp_user);
+                        //message.CC.Add("algonzalez@medline.com");
+                        SmtpClient client2 = new SmtpClient
+                        {
+                            Port = puerto,
+                            DeliveryMethod = SmtpDeliveryMethod.Network,
+                            UseDefaultCredentials = false,
+                            Host =server
+                        };
+                        message.Priority = MailPriority.High;
+                        message.Subject = "Shipping SYSTEM       CAJA DANADA: " + txtcaja.Text;
+                        message.Body = "Se ha encontrado una seccion danada en la caja # " + txtcaja.Text + "  (ver adjunto para detalles)";
+                        message.Attachments.Add(item);
+                        client2.Send(message);
+                        this.Close();
+                    }
                 }
                 else if (si5.Checked == false && (GlobalVar.Compania == 686))
                 {
@@ -137,11 +146,11 @@ namespace WindowsFormsApplication1
             }
             else if (si5.Checked == true && (GlobalVar.Compania == 686))
             {
-                writer = PdfWriter.GetInstance(doc, new FileStream(@"\\mxcprdfp1\Software_MXC\ShippingSystem\Mapas_electronicos\Checklistsqltest\Verificacion_#" + this.txtid.Text + "_cambio.pdf", FileMode.Create));
+                writer = PdfWriter.GetInstance(doc, new FileStream(checklist + "\\Verificacion_#" + this.txtid.Text + "_cambio.pdf", FileMode.Create));
             }
             else if (GlobalVar.Compania == 686)
             {
-                writer = PdfWriter.GetInstance(doc, new FileStream(@"\\mxcprdfp1\Software_MXC\ShippingSystem\Mapas_electronicos\Checklistsqltest\Verificacion_#" + this.txtid.Text + ".pdf", FileMode.Create));
+                writer = PdfWriter.GetInstance(doc, new FileStream(checklist + "\\Verificacion_#" + this.txtid.Text + ".pdf", FileMode.Create));
             }
 
             //****************************************************************************************************************************************
@@ -502,12 +511,18 @@ namespace WindowsFormsApplication1
 
         private void Verificacion_de_caja_Load(object sender, EventArgs e)
         {
-
+            if (idcarga > 0)
+            {
+                txtcaja.Text = _NoCaja;
+                txtid.Text = idcarga.ToString();
+            }
+            else
+            {
                 if (M3_Map.reasignar == "Y")
                 {
                     txtid.Text = M3_Map.numero_carga1;
                     txtcaja.Enabled = true;
-                    txtcaja.Text  = "";
+                    txtcaja.Text = "";
 
                 }
                 else
@@ -515,8 +530,7 @@ namespace WindowsFormsApplication1
                     txtcaja.Text = crear_carga.numero_caja1;
                     txtid.Text = M3_Map.numero_carga1;
                 }
-            
-        
+            }
         }
     }
 }

@@ -77,24 +77,31 @@
             this.data_con.Location = new System.Drawing.Point(425, 41);
             this.data_con.Margin = new System.Windows.Forms.Padding(4);
             this.data_con.Name = "data_con";
+            this.data_con.RowHeadersWidth = 49;
             this.data_con.Size = new System.Drawing.Size(419, 416);
             this.data_con.TabIndex = 0;
             // 
             // Lote
             // 
             this.Lote.HeaderText = "Lote";
+            this.Lote.MinimumWidth = 6;
             this.Lote.Name = "Lote";
+            this.Lote.Width = 120;
             // 
             // Cajas
             // 
             this.Cajas.HeaderText = "# Cajas";
+            this.Cajas.MinimumWidth = 6;
             this.Cajas.Name = "Cajas";
+            this.Cajas.Width = 120;
             // 
             // cbf
             // 
             this.cbf.HeaderText = "cbf";
+            this.cbf.MinimumWidth = 6;
             this.cbf.Name = "cbf";
             this.cbf.Visible = false;
+            this.cbf.Width = 120;
             // 
             // txtlote
             // 
@@ -103,9 +110,9 @@
             this.txtlote.ForeColor = System.Drawing.Color.Black;
             this.txtlote.Location = new System.Drawing.Point(48, 98);
             this.txtlote.Margin = new System.Windows.Forms.Padding(4);
-            this.txtlote.MaxLength = 8;
+            this.txtlote.MaxLength = 9;
             this.txtlote.Name = "txtlote";
-            this.txtlote.Size = new System.Drawing.Size(169, 30);
+            this.txtlote.Size = new System.Drawing.Size(169, 29);
             this.txtlote.TabIndex = 3;
             this.txtlote.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtlote_KeyPress);
             // 
@@ -116,7 +123,7 @@
             this.txtqty.Location = new System.Drawing.Point(48, 197);
             this.txtqty.Margin = new System.Windows.Forms.Padding(4);
             this.txtqty.Name = "txtqty";
-            this.txtqty.Size = new System.Drawing.Size(64, 30);
+            this.txtqty.Size = new System.Drawing.Size(64, 29);
             this.txtqty.TabIndex = 4;
             this.txtqty.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtqty_KeyPress);
             // 
@@ -295,7 +302,7 @@
             this.txtlocalizacion.Location = new System.Drawing.Point(45, 70);
             this.txtlocalizacion.Margin = new System.Windows.Forms.Padding(4);
             this.txtlocalizacion.Name = "txtlocalizacion";
-            this.txtlocalizacion.Size = new System.Drawing.Size(185, 30);
+            this.txtlocalizacion.Size = new System.Drawing.Size(185, 29);
             this.txtlocalizacion.TabIndex = 0;
             this.txtlocalizacion.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtlocalizacion_KeyPress);
             // 
@@ -304,10 +311,10 @@
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 603);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 602);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
-            this.statusStrip1.Size = new System.Drawing.Size(860, 25);
+            this.statusStrip1.Size = new System.Drawing.Size(860, 26);
             this.statusStrip1.TabIndex = 9;
             this.statusStrip1.Text = "statusStrip1";
             // 

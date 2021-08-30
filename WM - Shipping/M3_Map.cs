@@ -24,13 +24,13 @@ namespace WindowsFormsApplication1
 {
     public partial class M3_Map : Form
     {
-        public static string  id_carga1,incompleto="N",message1="",numero_de_rampa,numero_carga1,reasignar="N",numero_loc;
+        public static string  id_carga1,incompleto="N",message1="",numero_de_rampa,numero_carga1,reasignar="N",numero_loc,_sLote_esteril="0", ciclo_distinto = "N";
         public string cargar1="Y", sqlrowcount, empalme, cajas_ch,name_txt,ciclo,destino1, correo="N", notas, loc, rampa, posicion1, producto, lote, cajas, tarimas, cargador, lote_1, localizacion_1, cajas1, lote1, cajas_prqoh1, conteo, totalt, num11, num12, qty1, pos_caja, empal, loct, pospdf, traypdf, lottpdf, qtypdf, tarimapdf, usuariopdf, Validacion;
         Datos Consultar = new Datos();
         public int errorsave,posicion, answer, envio,puerto;
         public double  cbf_n, total;
         public bool Cancel = false;
-        public string server, smtp_user, mapa, discre;
+        public string server, smtp_user,checklist, mapa, discre,mapa_merge,mapaexcel,mapalayout;
         public Button btn;
         ArrayList lblcargas = new ArrayList();
         ArrayList lblciclos = new ArrayList();
@@ -66,6 +66,9 @@ namespace WindowsFormsApplication1
         private void txtlote_Leave_1(object sender, EventArgs e)
         {
             String lote1;
+            if (txttarima.TextLength == 0)
+                return;
+            
             if (txtlote.TextLength >= 9)
             {
                 lote1 = txtlote.Text;
@@ -90,24 +93,32 @@ namespace WindowsFormsApplication1
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
-            if (txtlote.Text == "")
-            {
-                MessageBox.Show("Introduzca el numero de Lote", "Verificar", MessageBoxButtons.OK, MessageBoxIcon.Hand);
-            }
+            String lote1;
+            if (txtlote.Text == "" || txttarima.Text == "")
+                MessageBox.Show("Introduzca el numero de Lote y el No. de Tarima", "Verificar", MessageBoxButtons.OK, MessageBoxIcon.Hand);
             else
-            {
+            {                
+                if (txtlote.TextLength >= 9)
+                {
+                    lote1 = txtlote.Text;
+                    if (lote1.Substring(8, 1) == "A" || lote1.Substring(8, 1) == "a" || lote1.Substring(8, 1) == "z" || lote1.Substring(8, 1) == "Z" || lote1.Substring(8, 1) == "b" || lote1.Substring(8, 1) == "B" || lote1.Substring(8, 1) == "c" || lote1.Substring(8, 1) == "C" || lote1.Substring(8, 1) == "x" || lote1.Substring(8, 1) == "X" || lote1.Substring(8, 1) == "y" || lote1.Substring(8, 1) == "Y")
+                        txtlote.Text = lote1.Substring(0, 9);
+                    else
+                        txtlote.Text = lote1.Substring(0, 8);   
+                }
 
                 actualizar_cbf(sender, e);
                 if (txtcaja.Text == "" || txtrampa.Text =="" || txtcarga.Text == "")
-                {
-
                     MessageBox.Show("Favor de llenar datos de rampa y caja", "REVISAR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
                 else
                 {
-                    cargar_enproceso(sender, e);
-                    cargar_rampa(sender, e);
+                    if (txtlote.TextLength >= 8)
+                    {
+                        //cargar_enproceso(sender, e);
+                        cargar_rampa(sender, e);
+                    }
+                    else
+                        return;
                 }
             }
             if (txtlocalizacion.Text == "S5" || txtlocalizacion.Text == "S6" || txtlocalizacion.Text == "S8" || txtlocalizacion.Text == "S9" || txtlocalizacion.Text == "S11" || txtlocalizacion.Text == "S12" && GlobalVar.Compania == 110)
@@ -127,6 +138,82 @@ namespace WindowsFormsApplication1
                 pos30.Visible = true;
             }
 
+        }
+        private void ValidaCicloEsteril()
+        {
+            _sLote_esteril = "0";
+            string sCicloCarga = lblciclo.Text.ToString();
+            if (sCicloCarga == "NO-ESTERIL")
+                sCicloCarga = "0";
+            else
+                sCicloCarga = "1";
+
+            string sSql = string.Empty;
+            //buscar tipo de estilizacion por lota
+            OdbcConnection conexion = new OdbcConnection("Dsn=QDSN_AS400SYS;uid=shipmex;pwd=mexship");
+            OdbcCommand comando = new OdbcCommand(sSql, conexion);
+            OdbcDataReader reader = null;
+
+            var sql2 = @"SELECT SUM(NE) AS NE,SUM(ES) AS ES,SUM(PG) AS PG FROM (
+                SELECT 1 AS NE, 0 AS ES, 0 AS PG
+                FROM B20E386T.KBM400MFG.FMWODET F 
+                INNER JOIN KBM400MFG.FMWOSUM S ON F.RTCO = S.WOCO AND F.WOWONO = S.WOWONO 
+                WHERE F.RTCO = " + GlobalVar.Compania + " AND S.WOLOT = '" + txtlote.Text.ToString().Trim() + "' AND F.RTWCNO = 'PRQNS' " +
+                @"UNION
+                SELECT 0 AS NE,1 AS ES, 0 AS PG
+                FROM B20E386T.KBM400MFG.FMWODET F 
+                INNER JOIN KBM400MFG.FMWOSUM S ON F.RTCO = S.WOCO AND F.WOWONO = S.WOWONO 
+                WHERE F.RTCO = " + GlobalVar.Compania + " AND S.WOLOT = '" + txtlote.Text.ToString().Trim() + "' AND F.RTWCNO = 'MSTER'  " +
+                @"UNION
+                SELECT 0 AS NE, 0 AS ES, 1 AS PG
+                FROM B20E386T.KBM400MFG.FMWODET F 
+                INNER JOIN KBM400MFG.FMWOSUM S ON F.RTCO = S.WOCO AND F.WOWONO = S.WOWONO
+                WHERE F.RTCO = " + GlobalVar.Compania + " AND S.WOLOT = '" + txtlote.Text.ToString().Trim() + "' AND F.RTWCNO = 'MXPGB' )";
+            comando = new OdbcCommand(sql2, conexion);
+            reader = null;
+            
+            try
+            {
+                int iNE = 0, iES = 0, iPG = 0;
+               
+                conexion.Open();
+                reader = comando.ExecuteReader();
+                if (reader.Read())
+                {
+                    if (!int.TryParse(reader["NE"].ToString(), out iNE))
+                        iNE = 0;
+                    if (!int.TryParse(reader["ES"].ToString(), out iES))
+                        iES = 0;
+                    if (!int.TryParse(reader["PG"].ToString(), out iPG))
+                        iPG = 0;
+
+                    if (iNE == 1)
+                        _sLote_esteril = "0";
+
+                    if (iES == 1 || iPG == 1)
+                        _sLote_esteril = "1";
+
+                }
+                conexion.Close();
+            }
+            catch (OdbcException ex)
+            {
+                MessageBox.Show(ex.ToString(), Text, MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+                conexion.Close();
+                _sLote_esteril = "-1";
+            }
+
+            /*
+            if (sCicloCarga != _sLote_esteril)
+            {
+                MessageBox.Show("El ciclo de esterilizacion del Lote no coincidice con el ciclo de la Carga." + Environment.NewLine +
+                    "Se requiere la autorización del Supervisor para continuar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                solicitar_password SupCode = new solicitar_password();
+                SupCode.ShowDialog();
+                if (!SupCode._Supervisor)
+                    bReturn = false;
+            }
+            */
         }
 
         private void cargar_rampa(object sender,EventArgs e)
@@ -161,8 +248,6 @@ namespace WindowsFormsApplication1
             }
         }
 
-       
-
         private void guardar_carga(object sender, EventArgs e)
         {
             if (txtcaja.Text == "")
@@ -170,31 +255,31 @@ namespace WindowsFormsApplication1
                 MessageBox.Show("Debe introducir el numero de caja de la carga", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 errorsave = 1;
             }
-            else
-               
+            else  
             {
-                    if (grid1.Rows.Count >= 1)
-                    {
-                        errorsave = 0;
-                        string hora = DateTime.Now.ToString("HH:mm");
-                        string date1 = DateTime.Now.ToString("MM/dd/yy");
-                        string tarima, total_tarimas, sql,id_tarima1;
-                        tarima = grid1.Rows[grid1.CurrentCell.RowIndex].Cells[3].Value.ToString();
-                        total_tarimas = grid1.Rows[grid1.CurrentCell.RowIndex].Cells[4].Value.ToString();
-                        empalme = grid1.Rows[grid1.CurrentCell.RowIndex].Cells[6].Value.ToString();
-                        id_tarima1 = grid1.Rows[grid1.CurrentCell.RowIndex].Cells[0].Value.ToString();
+                if (grid1.Rows.Count >= 1)
+                {
+                    errorsave = 0;
+                    string hora = DateTime.Now.ToString("HH:mm");
+                    string date1 = DateTime.Now.ToString("MM/dd/yy");
+                    string tarima, total_tarimas, sql,id_tarima1;
+                    tarima = grid1.Rows[grid1.CurrentCell.RowIndex].Cells[3].Value.ToString();
+                    total_tarimas = grid1.Rows[grid1.CurrentCell.RowIndex].Cells[4].Value.ToString();
+                    empalme = grid1.Rows[grid1.CurrentCell.RowIndex].Cells[6].Value.ToString();
+                    id_tarima1 = grid1.Rows[grid1.CurrentCell.RowIndex].Cells[0].Value.ToString();
                     if (empalme == "" || empalme == "0")
                     {
                         cajas_ch = Microsoft.VisualBasic.Interaction.InputBox("Confime cantidad de cajas para Lote:" + Environment.NewLine + grid1.Rows[grid1.CurrentCell.RowIndex].Cells[1].Value.ToString() + " Tarima " + grid1.Rows[grid1.CurrentCell.RowIndex].Cells[3].Value.ToString() + " / " + grid1.Rows[grid1.CurrentCell.RowIndex].Cells[4].Value.ToString(), "VERIFICAR");
                         CBF_Normal((object)sender, (MouseEventArgs)e);
-                        Consultar.M3ModificarMapa(txtcarga.Text, posicion, Convert.ToInt32(cajas_ch), cbf_n, Convert.ToInt32(id_tarima1));
+                        ValidaCicloEsteril();
+                        Consultar.M3ModificarMapa(txtcarga.Text, posicion, Convert.ToInt32(cajas_ch), cbf_n, Convert.ToInt32(id_tarima1), _sLote_esteril);
                     }
                     else
                     {
                         Consultar.M3ModificarMapas(txtcarga.Text, posicion, Convert.ToInt32(empalme));
                     }
                        
-                    }
+                }
             }
 
         }
@@ -266,7 +351,6 @@ namespace WindowsFormsApplication1
             qty.Clear();
             empals.Clear();
         }
-
 
         private void cargar_enproceso(object sender, EventArgs e)
         {
@@ -570,7 +654,6 @@ namespace WindowsFormsApplication1
             }
         }
 
-
         private void lotes_completos(object sender, EventArgs e)
         {
             lotM3.Clear();
@@ -607,110 +690,36 @@ namespace WindowsFormsApplication1
 
             }
         }
-
-        private void pos29_MouseClick(object sender, MouseEventArgs e)
+        private void Compara_ciclos()
         {
-            detenido((object)sender, (EventArgs)e);
-            if (cargar1 == "N")
-            {
-                MessageBox.Show("Lote esta marcado como NO CARGAR", "Verificar", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-            else
-            {
-                if (grid1.RowCount == 0)
-                {
-                    MessageBox.Show("No hay lotes para agregar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else
-                {
-                    DialogResult result;
-                    if (grid1.Rows[grid1.CurrentRow.Index].DefaultCellStyle.BackColor == Color.Red)
-                    {
-                        result = MessageBox.Show("El lote que desea agregar no tiene el mismo ciclo o destino!" + Environment.NewLine + Environment.NewLine + "Desea continuar y agregar el lote a la carga?", " VERIFICAR!", MessageBoxButtons.YesNo, MessageBoxIcon.Stop);
-                    }
-                    else
-                    {
-                        result = DialogResult.Yes;
-                    }
-                    // validando que no se carguen de otro ciclo principal 
-                    if (result == DialogResult.Yes)
-                    {
-                        if (pos29.Text == "")
-                        {
-                            posicion = 29;
-                            guardar_carga((Object)sender, (EventArgs)e);
-                            if (errorsave == 0)
-                            {
-                                if (empalme == "" || empalme == "0")
-                                {
-                                    pos29.Text = grid1.Rows[grid1.CurrentCell.RowIndex].Cells[1].Value.ToString() + Environment.NewLine + grid1.Rows[grid1.CurrentCell.RowIndex].Cells[3].Value.ToString() + " / " + grid1.Rows[grid1.CurrentCell.RowIndex].Cells[4].Value.ToString() + Environment.NewLine + cajas_ch + " cs";
-                                }
-                                else
-                                {
-                                    pos24.Text = "Empalme#" + Environment.NewLine + empalme;
-                                }
-                                grid1.Rows.RemoveAt(grid1.CurrentCell.RowIndex);
-                                cargar_rampa((object)sender, (EventArgs)e);
-                            }
-                        }
-                        else
-                        {
-                            MessageBox.Show("Posicion ya esta cargada, remueva lote para ingresar nuevo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                    }
-                }
-            }
-        }
+            ciclo_distinto = "N";
+            lotM3.Clear();
+            conteoM3.Clear();
+            totalM3.Clear();
+            message1 = "Lotes con ciclo de estarilización distinto:";
 
-        private void pos30_MouseClick(object sender, MouseEventArgs e)
-        {
-            detenido((object)sender, (EventArgs)e);
-            if (cargar1 == "N")
+            if (Consultar.LoteCicloDistintos(ref lotM3, ref conteoM3, ref totalM3, txtcarga.Text) == true)
             {
-                MessageBox.Show("Lote esta marcado como NO CARGAR", "Verificar", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-            else
-            {
-                if (grid1.RowCount == 0)
+                ciclo_distinto = "Y";
+                int total = (lotM3.Count - 1);
+
+                if (total >= 0)
                 {
-                    MessageBox.Show("No hay lotes para agregar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else
-                {
-                    DialogResult result;
-                    if (grid1.Rows[grid1.CurrentRow.Index].DefaultCellStyle.BackColor == Color.Red)
+                    for (int i = 0; i <= total; i++)
                     {
-                        result = MessageBox.Show("El lote que desea agregar no tiene el mismo ciclo o destino!" + Environment.NewLine + Environment.NewLine + "Desea continuar y agregar el lote a la carga?", " VERIFICAR!", MessageBoxButtons.YesNo, MessageBoxIcon.Stop);
-                    }
-                    else
-                    {
-                        result = DialogResult.Yes;
-                    }
-                    // validando que no se carguen de otro ciclo principal 
-                    if (result == DialogResult.Yes)
-                    {
-                        if (pos30.Text == "")
-                        {
-                            posicion = 30;
-                            guardar_carga((Object)sender, (EventArgs)e);
-                            if (errorsave == 0)
-                            {
-                                if (empalme == "" || empalme == "0")
-                                {
-                                    pos30.Text = grid1.Rows[grid1.CurrentCell.RowIndex].Cells[1].Value.ToString() + Environment.NewLine + grid1.Rows[grid1.CurrentCell.RowIndex].Cells[3].Value.ToString() + " / " + grid1.Rows[grid1.CurrentCell.RowIndex].Cells[4].Value.ToString() + Environment.NewLine + cajas_ch + " cs";
-                                }
-                                else
-                                {
-                                    pos30.Text = "Empalme#" + Environment.NewLine + empalme;
-                                }
-                                grid1.Rows.RemoveAt(grid1.CurrentCell.RowIndex);
-                                cargar_rampa((object)sender, (EventArgs)e);
-                            }
-                        }
+                        lote = lotM3[i].ToString();
+                        conteo += conteoM3[i];
+                        totalt = totalM3[i].ToString();
+                        if (totalt == "0")
+                            totalt = "NO-ESTERIL";
                         else
-                        {
-                            MessageBox.Show("Posicion ya esta cargada, remueva lote para ingresar nuevo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
+                            totalt = "ESTERIL";
+
+                        message1 = message1 + Environment.NewLine + lote + "    Total Tarimas= " + conteo + " | Ciclo de Esterilización= " + totalt;
+
+                        lote = "";
+                        conteo = "";
+                        totalt = "";
                     }
                 }
             }
@@ -884,8 +893,10 @@ namespace WindowsFormsApplication1
                 if (Consultar.M3CrearMapa(ref pos, ref tray, ref lott, ref qty, ref tarima, ref usuario, Convert.ToInt32(txtcarga.Text)))
                 {
                     // CREANDO ARCHIVO PDF
+                    string sFile = mapa;
                     Document doc = new Document(PageSize.LETTER);
-                    PdfWriter writer = PdfWriter.GetInstance(doc, new FileStream(@"\\mxcprdfp1\Software_MXC\ShippingSystem\Mapas_electronicos\Mapassqltest\MAPA#" + txtcarga.Text + ".pdf", FileMode.Create));
+                    PdfWriter writer = PdfWriter.GetInstance(doc, new FileStream(mapa + "\\MAPA#" + txtcarga.Text + ".pdf", FileMode.Create));
+                    //PdfWriter writer = PdfWriter.GetInstance(doc, new FileStream(@"\\mxcprdfp1\Software_MXC\ShippingSystem\Mapas_electronicos\Mapassqltest\MAPA#" + txtcarga.Text + ".pdf", FileMode.Create));
                     doc.Open();
                     iTextSharp.text.Font _title = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 15, iTextSharp.text.Font.BOLD, BaseColor.BLACK);
                     iTextSharp.text.Font _title2 = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12, iTextSharp.text.Font.BOLD, BaseColor.BLACK);
@@ -1040,8 +1051,6 @@ namespace WindowsFormsApplication1
             this.Close();
         }
 
-      
-
         private void send_mapa(object sender, EventArgs e)
         {
             if (GlobalVar.Compania == 110)
@@ -1088,12 +1097,17 @@ namespace WindowsFormsApplication1
             {
                 try
                 {
-                    if (Consultar.ConfigSMTP(ref server,ref smtp_user,ref puerto,ref mapa,ref discre ) == true)
+                    if (!string.IsNullOrEmpty(server))
                     {
+                        //adjuntar mapa en excel
+                        ArchivoExcel arcxls = new ArchivoExcel();
+                        arcxls.CrearMapaExcel(mapalayout, Consultar.M3GetMapa(txtcarga.Text.ToString()), mapaexcel);
+
                         //string PathFile1 = @"\\mxcprdfp1\Software_MXC\ShippingSystem\Mapas_electronicos\MergedSqlTest\MAPA_#" + txtcarga.Text + ".pdf";
                         //string PathFile2 = @"\\mxcprdfp1\Software_MXC\ShippingSystem\Mapas_electronicos\Reporte_discrepanciasSqltest\Discrepancias_MAPA#" + txtcarga.Text + ".txt";
-                        string PathFile1 = mapa + "\\MAPA_#" + txtcarga.Text + ".pdf";
+                        string PathFile1 = mapa_merge + "\\MAPA_#" + txtcarga.Text + ".pdf";
                         string PathFile2 = discre + "\\Discrepancias_MAPA#" + txtcarga.Text + ".txt";
+                        string PathFile3 = mapaexcel + "\\MAPA " + txtcarga.Text + ".xlsx";
 
                         if (File.Exists(PathFile1) && File.Exists(PathFile2))
                         {
@@ -1110,6 +1124,13 @@ namespace WindowsFormsApplication1
                             mail.Body = "Please find attached paperwork for shipment id# " + txtcarga.Text;
                             mail.Attachments.Add(adjunto1);
                             mail.Attachments.Add(adjunto2);
+
+                            if (File.Exists(PathFile3))//mapa en excel
+                            {
+                                Attachment adjunto3 = new Attachment(PathFile3);
+                                mail.Attachments.Add(adjunto3);
+                            }
+
                             client.Send(mail);
                             correo = "Y";
                         }
@@ -1127,10 +1148,11 @@ namespace WindowsFormsApplication1
             }
         }
 
-        
         private void button2_Click(object sender, EventArgs e)
         {
-            
+            if (GlobalVar.Compania == 686)     //get file locations & smtp parameters
+                Consultar.ConfigSMTP(ref server, ref smtp_user, ref puerto, ref mapa, ref discre, ref checklist, ref mapa_merge, ref mapaexcel, ref mapalayout);
+
             discrepancias_Validacion(sender, e);
 
             if(Cancel == true)
@@ -1156,16 +1178,11 @@ namespace WindowsFormsApplication1
                     toolStripProgressBar1.Value = 2;
                     //verificando que mapa no este sin lotes
              
-                        if ((Consultar.M3LabelLote(txtcarga.Text) == true))
-                        {
-                            mapa_vacio = "N";
-                        }
-                        else
-                        {
-                            mapa_vacio = "Y";
-                        }
-
-
+                    if ((Consultar.M3LabelLote(txtcarga.Text) == true))
+                        mapa_vacio = "N";
+                    else
+                        mapa_vacio = "Y";
+                    
                     if (mapa_vacio == "N")
                     {
                         // verificando que la carga no tenga lotes incompletos
@@ -1179,6 +1196,16 @@ namespace WindowsFormsApplication1
                         }
                         else
                         {
+                            Compara_ciclos();
+                            if (ciclo_distinto == "Y")
+                            {
+                                MessageBox.Show("Carga no se puede completar...Lotes con ciclo de esterilización distintos en MAPA:" + Environment.NewLine + message1, "No se puede embarcar!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                                solicitar_password SupCode = new solicitar_password();
+                                SupCode.ShowDialog();
+                                if (!SupCode._Supervisor)
+                                    return;
+                            }
+
                             try
                             {
                                 //string hora = DateTime.Now.ToString("HH:mm");
@@ -1221,7 +1248,7 @@ namespace WindowsFormsApplication1
                                         MessageBox.Show("Error al adjuntar archivo en correo", "No completado", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                                 }
                                 else
-                                    MessageBox.Show("Error al adjuntar archivo en correo", "No completado", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                    MessageBox.Show("Error al preparar el archivo para el correo", "No completado", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
                             }
                             catch (Exception ex)
@@ -1238,7 +1265,6 @@ namespace WindowsFormsApplication1
                 }
             }      
         }
-
         
         private void discrepancias_qty(object sender,EventArgs e)
         {
@@ -1296,7 +1322,8 @@ namespace WindowsFormsApplication1
                 }
                 else if(GlobalVar.Compania == 686)
                 {
-                    string fic = @"\\mxcprdfp1\Software_MXC\ShippingSystem\Mapas_electronicos\Reporte_discrepanciasSqltest\Discrepancias_MAPA#" + txtcarga.Text + ".txt";
+                    //string fic = @"\\mxcprdfp1\Software_MXC\ShippingSystem\Mapas_electronicos\Reporte_discrepanciasSqltest\Discrepancias_MAPA#" + txtcarga.Text + ".txt";
+                    string fic = discre + @"\Discrepancias_MAPA#" + txtcarga.Text + ".txt";
                     System.IO.StreamWriter sw = new System.IO.StreamWriter(fic);
                     sw.WriteLine(texto);
                     sw.Close();
@@ -1348,7 +1375,8 @@ namespace WindowsFormsApplication1
                                 break;
                             }
 
-                            /*
+                            /* codigo cancelado por algonzalez
+                             * 
                             if (cajas_prqoh12 < icajas)
                             {
                                 iVal = 1;
@@ -1425,7 +1453,7 @@ namespace WindowsFormsApplication1
                         Cursor.Current = Cursors.WaitCursor;
                         discrepancias_qty((object)sender, (EventArgs)e);
 
-                        string fic = @"\\mxcprdfp1\Software_MXC\ShippingSystem\Mapas_electronicos\Reporte_discrepanciasSqltest\Discrepancias_MAPA#" + txtcarga.Text + ".txt";
+                        string fic = discre + "\\Discrepancias_MAPA#" + txtcarga.Text + ".txt";
 
                         if (File.Exists(fic))
                             Process.Start(fic);
@@ -1550,22 +1578,65 @@ namespace WindowsFormsApplication1
               
             }
         }
-       
 
-        private void pos1_MouseClick(object sender, MouseEventArgs e)
-
+        #region positions buttons
+        private void ValidaLoteCicloDestino(object sender, EventArgs e,int _aiPos)
         {
-            
-           
-            // validando que no se carguen de otro ciclo principal 
-                detenido((object)sender, (EventArgs)e);
-                if (cargar1 == "N")
-                {
-                    MessageBox.Show("Lote esta marcado como NO CARGAR", "Verificar", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                }
+            detenido((Object)sender, (EventArgs)e);
+            bool bAdd = true;
+            if (cargar1 == "N")
+                MessageBox.Show("Lote esta marcado como NO CARGAR", "Verificar", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            else
+            {
+                if (grid1.RowCount == 0)
+                    MessageBox.Show("No hay lotes para agregar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 else
-                { 
-                
+                {
+                    //DialogResult result;
+                    if (grid1.Rows[grid1.CurrentRow.Index].DefaultCellStyle.BackColor == Color.Red)
+                    {
+                        if (MessageBox.Show("El lote que desea agregar no tiene el mismo ciclo o destino!" + Environment.NewLine + Environment.NewLine + "Desea continuar y agregar el lote a la carga?", " VERIFICAR!", MessageBoxButtons.YesNo, MessageBoxIcon.Stop) == DialogResult.No)
+                            bAdd = false;
+                    }
+                    
+                    if (bAdd)
+                    {
+                        if (pos1.Text == "")
+                        {
+                            posicion = _aiPos;
+                            guardar_carga((Object)sender, (EventArgs)e);
+                            if (errorsave == 0)
+                            {
+                                if (empalme == "" || empalme == "0")
+                                {
+                                    pos1.Text = grid1.Rows[grid1.CurrentCell.RowIndex].Cells[1].Value.ToString() + Environment.NewLine + 
+                                        grid1.Rows[grid1.CurrentCell.RowIndex].Cells[3].Value.ToString() + " / " + 
+                                        grid1.Rows[grid1.CurrentCell.RowIndex].Cells[4].Value.ToString() + Environment.NewLine + cajas_ch + " cs";
+                                }
+                                else                                
+                                    pos1.Text = "Empalme#" + Environment.NewLine + empalme;
+                                
+                                grid1.Rows.RemoveAt(grid1.CurrentCell.RowIndex);
+                                cargar_rampa((Object)sender, (EventArgs)e);
+                            }
+                        }
+                        else
+                            MessageBox.Show("Posicion ya esta cargada, remueva lote para ingresar nuevo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+        
+        private void pos1_MouseClick(object sender, MouseEventArgs e)
+        {
+           
+            detenido((object)sender, (EventArgs)e);
+            if (cargar1 == "N")
+            {
+                MessageBox.Show("Lote esta marcado como NO CARGAR", "Verificar", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            else
+            {     
                 if (grid1.RowCount == 0)
                 {
                     MessageBox.Show("No hay lotes para agregar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -1592,7 +1663,10 @@ namespace WindowsFormsApplication1
                                 if (empalme == "" || empalme == "0")
                                 {
                                     
-                                    pos1.Text = grid1.Rows[grid1.CurrentCell.RowIndex].Cells[1].Value.ToString() + Environment.NewLine + grid1.Rows[grid1.CurrentCell.RowIndex].Cells[3].Value.ToString() + " / " + grid1.Rows[grid1.CurrentCell.RowIndex].Cells[4].Value.ToString() + Environment.NewLine + cajas_ch + " cs";
+                                    pos1.Text = grid1.Rows[grid1.CurrentCell.RowIndex].Cells[1].Value.ToString() + 
+                                        Environment.NewLine + grid1.Rows[grid1.CurrentCell.RowIndex].Cells[3].Value.ToString() + 
+                                        " / " + grid1.Rows[grid1.CurrentCell.RowIndex].Cells[4].Value.ToString() + 
+                                        Environment.NewLine + cajas_ch + " cs";
                                 }
                                 else
                                 {
@@ -1607,13 +1681,13 @@ namespace WindowsFormsApplication1
                             MessageBox.Show("Posicion ya esta cargada, remueva lote para ingresar nuevo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
-
                 }    
+            }
             
-        }
         }
         private void pos2_MouseClick(object sender, MouseEventArgs e)
         {
+           
             detenido((object)sender, (EventArgs)e);
             if (cargar1 == "N")
             {
@@ -1670,9 +1744,11 @@ namespace WindowsFormsApplication1
                 }
 
             }
+            
         }
         private void pos3_MouseClick(object sender, MouseEventArgs e)
         {
+           
             detenido((object)sender, (EventArgs)e);
             if (cargar1 == "N")
             {
@@ -1727,7 +1803,7 @@ namespace WindowsFormsApplication1
         }
         private void pos4_MouseClick(object sender, MouseEventArgs e)
         {
-
+           
             detenido((object)sender, (EventArgs)e);
             if (cargar1 == "N")
             {
@@ -1780,12 +1856,10 @@ namespace WindowsFormsApplication1
                 }
             }
 
-
-          
         }
         private void pos5_MouseClick(object sender, MouseEventArgs e)
         {
-
+           
             detenido((object)sender, (EventArgs)e);
             if (cargar1 == "N")
             {
@@ -1841,6 +1915,7 @@ namespace WindowsFormsApplication1
         }
         private void pos6_MouseClick(object sender, MouseEventArgs e)
         {
+           
             detenido((object)sender, (EventArgs)e);
             if (cargar1 == "N")
             {
@@ -1896,6 +1971,7 @@ namespace WindowsFormsApplication1
         }
         private void pos7_MouseClick(object sender, MouseEventArgs e)
         {
+           
             detenido((object)sender, (EventArgs)e);
             if (cargar1 == "N")
             {
@@ -1951,6 +2027,7 @@ namespace WindowsFormsApplication1
         }
         private void pos8_MouseClick(object sender, MouseEventArgs e)
         {
+            
             detenido((object)sender, (EventArgs)e);
             if (cargar1 == "N")
             {
@@ -2001,11 +2078,12 @@ namespace WindowsFormsApplication1
                     }
                 }
             }
-
+            
            
         }
         private void pos9_MouseClick(object sender, MouseEventArgs e)
         {
+            
             detenido((object)sender, (EventArgs)e);
             if (cargar1 == "N")
             {
@@ -2057,10 +2135,11 @@ namespace WindowsFormsApplication1
                     }
                 }
             }
-
+            
         }
         private void pos10_MouseClick(object sender, MouseEventArgs e)
         {
+           
             detenido((object)sender, (EventArgs)e);
             if (cargar1 == "N")
             {
@@ -2111,11 +2190,12 @@ namespace WindowsFormsApplication1
                     }
                 }
             }
-
+            
             
         }
         private void pos11_MouseClick(object sender, MouseEventArgs e)
         {
+           
             detenido((object)sender, (EventArgs)e);
             if (cargar1 == "N")
             {
@@ -2172,6 +2252,7 @@ namespace WindowsFormsApplication1
         }
         private void pos12_MouseClick(object sender, MouseEventArgs e)
         {
+            
             detenido((object)sender, (EventArgs)e);
             if (cargar1 == "N")
             {
@@ -2222,11 +2303,12 @@ namespace WindowsFormsApplication1
                     }
                 }
             }
-
+            
            
         }
         private void pos13_MouseClick(object sender, MouseEventArgs e)
         {
+            
             detenido((object)sender, (EventArgs)e);
             if (cargar1 == "N")
             {
@@ -2277,11 +2359,12 @@ namespace WindowsFormsApplication1
                     }
                 }
             }
-
+            
           
         }
         private void pos14_MouseClick(object sender, MouseEventArgs e)
         {
+            
             detenido((object)sender, (EventArgs)e);
             if (cargar1 == "N")
             {
@@ -2337,6 +2420,7 @@ namespace WindowsFormsApplication1
         }
         private void pos15_MouseClick(object sender, MouseEventArgs e)
         {
+           
             detenido((object)sender, (EventArgs)e);
             if (cargar1 == "N")
             {
@@ -2387,9 +2471,11 @@ namespace WindowsFormsApplication1
                     }
                 }
             }
+            
         }
         private void pos16_MouseClick(object sender, MouseEventArgs e)
         {
+            
             detenido((object)sender, (EventArgs)e);
             if (cargar1 == "N")
             {
@@ -2445,6 +2531,7 @@ namespace WindowsFormsApplication1
         }
         private void pos17_MouseClick(object sender, MouseEventArgs e)
         {
+            
             detenido((object)sender, (EventArgs)e);
             if (cargar1 == "N")
             {
@@ -2495,9 +2582,11 @@ namespace WindowsFormsApplication1
                     }
                 }
             }
+            
         }
         private void pos18_MouseClick(object sender, MouseEventArgs e)
         {
+            
             detenido((object)sender, (EventArgs)e);
             if (cargar1 == "N")
             {
@@ -2548,9 +2637,11 @@ namespace WindowsFormsApplication1
                     }
                 }
             }
+            
         }
         private void pos19_MouseClick(object sender, MouseEventArgs e)
         {
+            
             detenido((object)sender, (EventArgs)e);
             if (cargar1 == "N")
             {
@@ -2601,11 +2692,12 @@ namespace WindowsFormsApplication1
                     }
                 }
             }
-
+            
            
         }
         private void pos20_MouseClick(object sender, MouseEventArgs e)
         {
+           
             detenido((object)sender, (EventArgs)e);
             if (cargar1 == "N")
             {
@@ -2656,11 +2748,12 @@ namespace WindowsFormsApplication1
                     }
                 }
             }
-
+            
            
         }
         private void pos21_MouseClick(object sender, MouseEventArgs e)
         {
+           
             detenido((object)sender, (EventArgs)e);
             if (cargar1 == "N")
             {
@@ -2711,11 +2804,12 @@ namespace WindowsFormsApplication1
                     }
                 }
             }
-
+            
           
         }
         private void pos22_MouseClick(object sender, MouseEventArgs e)
         {
+            
             detenido((object)sender, (EventArgs)e);
             if (cargar1 == "N")
             {
@@ -2771,6 +2865,7 @@ namespace WindowsFormsApplication1
         }
         private void pos23_MouseClick(object sender, MouseEventArgs e)
         {
+           
             detenido((object)sender, (EventArgs)e);
             if (cargar1 == "N")
             {
@@ -2821,11 +2916,12 @@ namespace WindowsFormsApplication1
                     }
                 }
             }
-
+            
            
         }
         private void pos24_MouseClick(object sender, MouseEventArgs e)
         {
+            
             detenido((object)sender, (EventArgs)e);
             if (cargar1 == "N")
             {
@@ -2881,6 +2977,7 @@ namespace WindowsFormsApplication1
         }
         private void pos25_MouseClick(object sender, MouseEventArgs e)
         {
+            
             detenido((object)sender, (EventArgs)e);
             if (cargar1 == "N")
             {
@@ -2931,7 +3028,7 @@ namespace WindowsFormsApplication1
                     }
                 }
             }
-
+            
            
         }
         private void pos26_MouseClick(object sender, MouseEventArgs e)
@@ -2986,11 +3083,12 @@ namespace WindowsFormsApplication1
                     }
                 }
             }
-
+            
            
         }
         private void pos27_MouseClick(object sender, MouseEventArgs e)
         {
+            
             detenido((object)sender, (EventArgs)e);
             if (cargar1 == "N")
             {
@@ -3045,6 +3143,7 @@ namespace WindowsFormsApplication1
         }
         private void pos28_MouseClick(object sender, MouseEventArgs e)
         {
+           
             detenido((object)sender, (EventArgs)e);
             if (cargar1 == "N")
             {
@@ -3095,10 +3194,121 @@ namespace WindowsFormsApplication1
                     }
                 }
             }
-
+            
+            
+        }
+        private void pos29_MouseClick(object sender, MouseEventArgs e)
+        {
+            
+            detenido((object)sender, (EventArgs)e);
+            if (cargar1 == "N")
+            {
+                MessageBox.Show("Lote esta marcado como NO CARGAR", "Verificar", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            else
+            {
+                if (grid1.RowCount == 0)
+                {
+                    MessageBox.Show("No hay lotes para agregar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    DialogResult result;
+                    if (grid1.Rows[grid1.CurrentRow.Index].DefaultCellStyle.BackColor == Color.Red)
+                    {
+                        result = MessageBox.Show("El lote que desea agregar no tiene el mismo ciclo o destino!" + Environment.NewLine + Environment.NewLine + "Desea continuar y agregar el lote a la carga?", " VERIFICAR!", MessageBoxButtons.YesNo, MessageBoxIcon.Stop);
+                    }
+                    else
+                    {
+                        result = DialogResult.Yes;
+                    }
+                    // validando que no se carguen de otro ciclo principal 
+                    if (result == DialogResult.Yes)
+                    {
+                        if (pos29.Text == "")
+                        {
+                            posicion = 29;
+                            guardar_carga((Object)sender, (EventArgs)e);
+                            if (errorsave == 0)
+                            {
+                                if (empalme == "" || empalme == "0")
+                                {
+                                    pos29.Text = grid1.Rows[grid1.CurrentCell.RowIndex].Cells[1].Value.ToString() + Environment.NewLine + grid1.Rows[grid1.CurrentCell.RowIndex].Cells[3].Value.ToString() + " / " + grid1.Rows[grid1.CurrentCell.RowIndex].Cells[4].Value.ToString() + Environment.NewLine + cajas_ch + " cs";
+                                }
+                                else
+                                {
+                                    pos24.Text = "Empalme#" + Environment.NewLine + empalme;
+                                }
+                                grid1.Rows.RemoveAt(grid1.CurrentCell.RowIndex);
+                                cargar_rampa((object)sender, (EventArgs)e);
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Posicion ya esta cargada, remueva lote para ingresar nuevo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+            }
+            
+        }
+        private void pos30_MouseClick(object sender, MouseEventArgs e)
+        {
+            
+            detenido((object)sender, (EventArgs)e);
+            if (cargar1 == "N")
+            {
+                MessageBox.Show("Lote esta marcado como NO CARGAR", "Verificar", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            else
+            {
+                if (grid1.RowCount == 0)
+                {
+                    MessageBox.Show("No hay lotes para agregar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    DialogResult result;
+                    if (grid1.Rows[grid1.CurrentRow.Index].DefaultCellStyle.BackColor == Color.Red)
+                    {
+                        result = MessageBox.Show("El lote que desea agregar no tiene el mismo ciclo o destino!" + Environment.NewLine + Environment.NewLine + "Desea continuar y agregar el lote a la carga?", " VERIFICAR!", MessageBoxButtons.YesNo, MessageBoxIcon.Stop);
+                    }
+                    else
+                    {
+                        result = DialogResult.Yes;
+                    }
+                    // validando que no se carguen de otro ciclo principal 
+                    if (result == DialogResult.Yes)
+                    {
+                        if (pos30.Text == "")
+                        {
+                            posicion = 30;
+                            guardar_carga((Object)sender, (EventArgs)e);
+                            if (errorsave == 0)
+                            {
+                                if (empalme == "" || empalme == "0")
+                                {
+                                    pos30.Text = grid1.Rows[grid1.CurrentCell.RowIndex].Cells[1].Value.ToString() + Environment.NewLine + grid1.Rows[grid1.CurrentCell.RowIndex].Cells[3].Value.ToString() + " / " + grid1.Rows[grid1.CurrentCell.RowIndex].Cells[4].Value.ToString() + Environment.NewLine + cajas_ch + " cs";
+                                }
+                                else
+                                {
+                                    pos30.Text = "Empalme#" + Environment.NewLine + empalme;
+                                }
+                                grid1.Rows.RemoveAt(grid1.CurrentCell.RowIndex);
+                                cargar_rampa((object)sender, (EventArgs)e);
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Posicion ya esta cargada, remueva lote para ingresar nuevo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+            }
             
         }
 
+        #endregion
         private void button3_Click(object sender, EventArgs e)
         {
             
@@ -3213,25 +3423,28 @@ namespace WindowsFormsApplication1
                 lbldestino.Text = "";
                 lblciclo.Text = "";
                 lblnotas.Text = "";
+                txtlote.Clear();
+                txttarima.Clear();
              
              if (Consultar.M3carganota(ref cajas_ch, ref destino1, ref ciclo, ref rampa, ref notas, ref loc,txtcarga.Text) == true)
                 {
-                        txtcaja.Text = (cajas_ch);
-                        lblciclo.Text = (ciclo);
-                        lbldestino.Text = (destino1);
-                        txtrampa.Text = (rampa);
-                        lblnotas.Text = (notas);
-                        txtlocalizacion.Text = (loc);
+                    txtcaja.Text = (cajas_ch);
+                    lblciclo.Text = (ciclo);
+                    lbldestino.Text = (destino1);
+                    txtrampa.Text = (rampa);
+                    lblnotas.Text = (notas);
+                    txtlocalizacion.Text = (loc);
                        
-                        lblciclo.Visible = true;
-                        lbldestino.Visible = true;
-                        if (txtcaja.Text == "")
-                        {
-                            btnadd.Enabled = true;
-                        }
+                    lblciclo.Visible = true;
+                    lbldestino.Visible = true;
+                    if (txtcaja.Text == "")
+                    {
+                        btnadd.Enabled = true;
+                    }
                     else
                     {
                         btnadd.Enabled = false;
+                        cargar_enproceso(sender, e);
                     }
                 }
             }
@@ -3251,7 +3464,7 @@ namespace WindowsFormsApplication1
         private void btnadd_Click(object sender, EventArgs e)
         {
             reasignar = "Y";
-            numero_carga1  = txtcarga .Text ;
+            numero_carga1  = txtcarga.Text ;
             Verificacion_de_caja verificar = new Verificacion_de_caja();
             verificar.ShowDialog();
             if (txtcarga.Text != "")
@@ -3319,8 +3532,11 @@ namespace WindowsFormsApplication1
             {
 
                 string[] lstFiles = new string[3];
-                lstFiles[0] = @"\\mxcprdfp1\Software_MXC\ShippingSystem\Mapas_electronicos\Mapassqltest\MAPA#" + txtcarga.Text + ".pdf";
-                lstFiles[1] = @"\\mxcprdfp1\Software_MXC\ShippingSystem\Mapas_electronicos\ChecklistSqltest\Verificacion_#" + txtcarga.Text + ".pdf";
+                //lstFiles[0] = @"\\mxcprdfp1\Software_MXC\ShippingSystem\Mapas_electronicos\Mapassqltest\MAPA#" + txtcarga.Text + ".pdf";
+                //lstFiles[1] = @"\\mxcprdfp1\Software_MXC\ShippingSystem\Mapas_electronicos\ChecklistSqltest\Verificacion_#" + txtcarga.Text + ".pdf";
+
+                lstFiles[0] = mapa + "\\MAPA#" + txtcarga.Text + ".pdf";
+                lstFiles[1] = checklist + "\\Verificacion_#" + txtcarga.Text + ".pdf";
 
                 if (File.Exists(lstFiles[0]) == true && File.Exists(lstFiles[1]) == true)
                 {
@@ -3328,10 +3544,11 @@ namespace WindowsFormsApplication1
                     Document sourceDocument = null;
                     PdfCopy pdfCopyProvider = null;
                     PdfImportedPage importedPage;
-                    string outputPdfPath = @"\\mxcprdfp1\Software_MXC\ShippingSystem\Mapas_electronicos\Mergedsqltest\MAPA_#" + txtcarga.Text + ".pdf";
-                    
+                    //string outputPdfPath = @"\\mxcprdfp1\Software_MXC\ShippingSystem\Mapas_electronicos\Mergedsqltest\MAPA_#" + txtcarga.Text + ".pdf";
+                    string outputPdfPath = mapa_merge + "\\MAPA_#" + txtcarga.Text + ".pdf";
+
                     sourceDocument = new Document();
-                    pdfCopyProvider = new PdfCopy(sourceDocument, new System.IO.FileStream(outputPdfPath, System.IO.FileMode.Create));
+                    pdfCopyProvider = new PdfCopy(sourceDocument, new FileStream(outputPdfPath, System.IO.FileMode.Create));
 
                     //Open the output file
                     sourceDocument.Open();
@@ -3373,14 +3590,20 @@ namespace WindowsFormsApplication1
        }
         private int get_pageCcount(string file)
         {
-        using (StreamReader sr = new StreamReader(File.OpenRead(file)))
-        {
-        Regex regex = new Regex(@"/Type\s*/Page[^s]");
-        MatchCollection matches = regex.Matches(sr.ReadToEnd());
+            try
+            {
+                using (StreamReader sr = new StreamReader(File.OpenRead(file)))
+                {
+                    Regex regex = new Regex(@"/Type\s*/Page[^s]");
+                    MatchCollection matches = regex.Matches(sr.ReadToEnd());
 
-        return matches.Count;
-
+                    return matches.Count;
+                }
+            }catch(Exception ex)
+            {
+                throw ex;
             }
+            
         }
     }
 }  

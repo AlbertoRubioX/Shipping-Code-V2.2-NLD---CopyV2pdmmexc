@@ -153,7 +153,7 @@
             this.txtrampa.Margin = new System.Windows.Forms.Padding(4);
             this.txtrampa.Name = "txtrampa";
             this.txtrampa.ReadOnly = true;
-            this.txtrampa.Size = new System.Drawing.Size(132, 30);
+            this.txtrampa.Size = new System.Drawing.Size(132, 29);
             this.txtrampa.TabIndex = 3;
             this.txtrampa.TextChanged += new System.EventHandler(this.txtrampa_TextChanged);
             // 
@@ -184,7 +184,7 @@
             this.label1.Location = new System.Drawing.Point(72, 108);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(79, 20);
+            this.label1.Size = new System.Drawing.Size(76, 20);
             this.label1.TabIndex = 3;
             this.label1.Text = "Rampa :";
             // 
@@ -925,7 +925,7 @@
             this.txtcaja.Margin = new System.Windows.Forms.Padding(4);
             this.txtcaja.Name = "txtcaja";
             this.txtcaja.ReadOnly = true;
-            this.txtcaja.Size = new System.Drawing.Size(239, 30);
+            this.txtcaja.Size = new System.Drawing.Size(239, 29);
             this.txtcaja.TabIndex = 2;
             this.txtcaja.TextChanged += new System.EventHandler(this.txtcaja_TextChanged);
             // 
@@ -938,7 +938,7 @@
             this.label17.Location = new System.Drawing.Point(88, 69);
             this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(63, 24);
+            this.label17.Size = new System.Drawing.Size(63, 22);
             this.label17.TabIndex = 63;
             this.label17.Text = "Caja :";
             // 
@@ -986,7 +986,7 @@
             this.txttarima.Margin = new System.Windows.Forms.Padding(4);
             this.txttarima.MaxLength = 8;
             this.txttarima.Name = "txttarima";
-            this.txttarima.Size = new System.Drawing.Size(59, 30);
+            this.txttarima.Size = new System.Drawing.Size(59, 29);
             this.txttarima.TabIndex = 85;
             this.txttarima.Text = "0";
             // 
@@ -999,7 +999,7 @@
             this.label42.Location = new System.Drawing.Point(72, 234);
             this.label42.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(79, 20);
+            this.label42.Size = new System.Drawing.Size(73, 20);
             this.label42.TabIndex = 84;
             this.label42.Text = "Tarima :";
             // 
@@ -1011,7 +1011,7 @@
             this.txtlote.Margin = new System.Windows.Forms.Padding(4);
             this.txtlote.MaxLength = 9;
             this.txtlote.Name = "txtlote";
-            this.txtlote.Size = new System.Drawing.Size(133, 30);
+            this.txtlote.Size = new System.Drawing.Size(133, 29);
             this.txtlote.TabIndex = 83;
             this.txtlote.Leave += new System.EventHandler(this.txtlote_Leave_1);
             // 
@@ -1024,7 +1024,7 @@
             this.label41.Location = new System.Drawing.Point(4, 198);
             this.label41.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(147, 20);
+            this.label41.Size = new System.Drawing.Size(139, 20);
             this.label41.TabIndex = 82;
             this.label41.Text = "Lote / Emplame:";
             // 
@@ -1050,7 +1050,7 @@
             this.txtlocalizacion.Location = new System.Drawing.Point(149, 148);
             this.txtlocalizacion.Margin = new System.Windows.Forms.Padding(4);
             this.txtlocalizacion.Name = "txtlocalizacion";
-            this.txtlocalizacion.Size = new System.Drawing.Size(132, 30);
+            this.txtlocalizacion.Size = new System.Drawing.Size(132, 29);
             this.txtlocalizacion.TabIndex = 80;
             // 
             // label38
@@ -1062,7 +1062,7 @@
             this.label38.Location = new System.Drawing.Point(30, 155);
             this.label38.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(121, 20);
+            this.label38.Size = new System.Drawing.Size(113, 20);
             this.label38.TabIndex = 79;
             this.label38.Text = "Localizacion:";
             // 
@@ -1073,7 +1073,7 @@
             this.lblnotas.Location = new System.Drawing.Point(524, 167);
             this.lblnotas.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblnotas.Name = "lblnotas";
-            this.lblnotas.Size = new System.Drawing.Size(75, 20);
+            this.lblnotas.Size = new System.Drawing.Size(72, 20);
             this.lblnotas.TabIndex = 78;
             this.lblnotas.Text = "lblnotas";
             this.lblnotas.Visible = false;
@@ -1087,7 +1087,7 @@
             this.label37.Location = new System.Drawing.Point(524, 148);
             this.label37.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(70, 20);
+            this.label37.Size = new System.Drawing.Size(66, 20);
             this.label37.TabIndex = 77;
             this.label37.Text = "Notas :";
             // 
@@ -1117,7 +1117,7 @@
             this.label35.Location = new System.Drawing.Point(46, 33);
             this.label35.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(105, 24);
+            this.label35.Size = new System.Drawing.Size(103, 22);
             this.label35.TabIndex = 76;
             this.label35.Text = "Id_Carga :";
             // 
@@ -1127,7 +1127,7 @@
             this.txtcarga.Location = new System.Drawing.Point(151, 29);
             this.txtcarga.Margin = new System.Windows.Forms.Padding(4);
             this.txtcarga.Name = "txtcarga";
-            this.txtcarga.Size = new System.Drawing.Size(132, 30);
+            this.txtcarga.Size = new System.Drawing.Size(132, 29);
             this.txtcarga.TabIndex = 0;
             this.txtcarga.TextChanged += new System.EventHandler(this.txtcarga_TextChanged);
             // 
@@ -1149,7 +1149,7 @@
             this.lbldestino.Location = new System.Drawing.Point(524, 110);
             this.lbldestino.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbldestino.Name = "lbldestino";
-            this.lbldestino.Size = new System.Drawing.Size(86, 20);
+            this.lbldestino.Size = new System.Drawing.Size(81, 20);
             this.lbldestino.TabIndex = 74;
             this.lbldestino.Text = "Destino :";
             this.lbldestino.Visible = false;
@@ -1163,7 +1163,7 @@
             this.label34.Location = new System.Drawing.Point(524, 86);
             this.label34.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(86, 20);
+            this.label34.Size = new System.Drawing.Size(81, 20);
             this.label34.TabIndex = 73;
             this.label34.Text = "Destino :";
             // 
@@ -1176,7 +1176,7 @@
             this.lblciclo.Location = new System.Drawing.Point(524, 52);
             this.lblciclo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblciclo.Name = "lblciclo";
-            this.lblciclo.Size = new System.Drawing.Size(52, 20);
+            this.lblciclo.Size = new System.Drawing.Size(48, 20);
             this.lblciclo.TabIndex = 73;
             this.lblciclo.Text = "Ciclo";
             this.lblciclo.Visible = false;
@@ -1190,7 +1190,7 @@
             this.label32.Location = new System.Drawing.Point(524, 31);
             this.label32.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(64, 20);
+            this.label32.Size = new System.Drawing.Size(58, 20);
             this.label32.TabIndex = 72;
             this.label32.Text = "Ciclo :";
             // 
@@ -1253,6 +1253,7 @@
             this.grid1.Margin = new System.Windows.Forms.Padding(4);
             this.grid1.Name = "grid1";
             this.grid1.ReadOnly = true;
+            this.grid1.RowHeadersWidth = 49;
             this.grid1.Size = new System.Drawing.Size(771, 511);
             this.grid1.TabIndex = 72;
             this.grid1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grid1_CellContentClick);
@@ -1392,7 +1393,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1312, 31);
+            this.menuStrip1.Size = new System.Drawing.Size(1313, 29);
             this.menuStrip1.TabIndex = 73;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -1401,7 +1402,7 @@
             this.nuevaCargaToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.nuevaCargaToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nuevaCargaToolStripMenuItem.Name = "nuevaCargaToolStripMenuItem";
-            this.nuevaCargaToolStripMenuItem.Size = new System.Drawing.Size(124, 27);
+            this.nuevaCargaToolStripMenuItem.Size = new System.Drawing.Size(122, 25);
             this.nuevaCargaToolStripMenuItem.Text = "Nueva Carga";
             this.nuevaCargaToolStripMenuItem.Click += new System.EventHandler(this.nuevaCargaToolStripMenuItem_Click);
             // 
@@ -1424,7 +1425,7 @@
             this.cbfvalor.Location = new System.Drawing.Point(331, 95);
             this.cbfvalor.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.cbfvalor.Name = "cbfvalor";
-            this.cbfvalor.Size = new System.Drawing.Size(50, 29);
+            this.cbfvalor.Size = new System.Drawing.Size(48, 28);
             this.cbfvalor.TabIndex = 82;
             this.cbfvalor.Text = "CBF";
             this.cbfvalor.Visible = false;
@@ -1436,7 +1437,7 @@
             this.cbfporcentaje.Location = new System.Drawing.Point(331, 160);
             this.cbfporcentaje.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.cbfporcentaje.Name = "cbfporcentaje";
-            this.cbfporcentaje.Size = new System.Drawing.Size(50, 29);
+            this.cbfporcentaje.Size = new System.Drawing.Size(48, 28);
             this.cbfporcentaje.TabIndex = 83;
             this.cbfporcentaje.Text = "CBF";
             this.cbfporcentaje.Visible = false;
@@ -1521,7 +1522,7 @@
             this.label36.Location = new System.Drawing.Point(331, 132);
             this.label36.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(262, 29);
+            this.label36.Size = new System.Drawing.Size(249, 28);
             this.label36.TabIndex = 85;
             this.label36.Text = "Porcentaje de Utilizacion";
             this.label36.Visible = false;
@@ -1534,7 +1535,7 @@
             this.label33.Location = new System.Drawing.Point(331, 66);
             this.label33.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(137, 29);
+            this.label33.Size = new System.Drawing.Size(129, 28);
             this.label33.TabIndex = 84;
             this.label33.Text = "Pies Cubicos";
             this.label33.Visible = false;
@@ -1557,7 +1558,7 @@
             this.statusStrip1.Location = new System.Drawing.Point(0, 1066);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
-            this.statusStrip1.Size = new System.Drawing.Size(1312, 25);
+            this.statusStrip1.Size = new System.Drawing.Size(1313, 26);
             this.statusStrip1.TabIndex = 75;
             this.statusStrip1.Text = "statusStrip1";
             // 

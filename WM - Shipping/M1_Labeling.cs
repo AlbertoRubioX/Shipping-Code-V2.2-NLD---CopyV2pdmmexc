@@ -25,7 +25,7 @@ namespace WindowsFormsApplication1
         public string no_cargar_1 = "Y";
         public string main_division, branch_loc, branch_loc2, fgstatus, printmessage, producto, abc, family, Mscycle, ester, wt, sql, duplicado, NPScycle, Opencycle1, Opencycle2, radiation; 
         public double mioh2, worqty,tarimas,wosm14,remainder,fgmioh,qtypartoh,unmps, branchoh, hanb4060, intransit, forecast, csxtarima,partial,partial1, pesoxcaja,peso, peso_completo,peso_parcial,book4,book5,book6 ;
-
+        public int qpc_q=0;
         private void btncerrar_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -44,11 +44,11 @@ namespace WindowsFormsApplication1
 
         }
 
-        private bool valida_op30()
+        private bool valida_op40()
         {
             OdbcConnection conexion = new OdbcConnection("Dsn=QDSN_AS400SYS;uid=shipmex;pwd=mexship");
-            sql = @"SELECT WOCOPN FROM   KBM400MFG.FMWOSUM where WOLOT='" + lbllote.Text + "' AND  WOCO=" + GlobalVar.Compania + "";
-            OdbcCommand comando = new OdbcCommand(sql, conexion);
+            string sSql = @"SELECT WOCOPN FROM   KBM400MFG.FMWOSUM where WOLOT='" + lbllote.Text + "' AND  WOCO=" + GlobalVar.Compania + "";
+            OdbcCommand comando = new OdbcCommand(sSql, conexion);
             OdbcDataReader reader = null;
             try
             {
@@ -57,7 +57,7 @@ namespace WindowsFormsApplication1
                 if (reader.Read())
                 {
                     int op_number = Convert.ToInt32(reader["WOCOPN"]);
-                    if (op_number >= 30)
+                    if (op_number >= 40)
                         return true;
                 }
             }
@@ -85,7 +85,7 @@ namespace WindowsFormsApplication1
 
                 // lote_detenido((object) sender, (EventArgs) e);
                 double pesoxunit;
-                int qpc_q;
+                qpc_q = 0;
                 // Candena de Conexion a AS400
                 OdbcConnection conexion = new OdbcConnection("Dsn=QDSN_AS400SYS;uid=shipmex;pwd=mexship");
                 if (GlobalVar.Compania == 110)
@@ -320,7 +320,8 @@ namespace WindowsFormsApplication1
                     else
                     {
                         MessageBox.Show("Lote Invalido");
-                        goto jump1;
+                        return;
+                        //goto jump1;
 
                     }
                 }
@@ -429,8 +430,61 @@ namespace WindowsFormsApplication1
                     {
                         txtlocalizacion.Text = "S1";
                     }
+
+                    /*
+                     * ALGONZALEZ V.3
+                     Valida destino para ayuda visual con color
+                     */
+                    if(wo_numb > 0)
+                    {
+                        var sql2 = @"SELECT SUM(NE) AS NE,SUM(ES) AS ES,SUM(PG) AS PG FROM (
+                        SELECT 1 AS NE, 0 AS ES, 0 AS PG
+                        FROM B20E386T.KBM400MFG.FMWODET FMWODET 
+                        WHERE(FMWODET.RTCO = " + GlobalVar.Compania + ") AND(FMWODET.WOWONO = '" + wo_numb.ToString() + "') AND FMWODET.RTWCNO = 'PRQNS' " +
+                        @"UNION
+                        SELECT 0 AS NE,1 AS ES, 0 AS PG
+                        FROM B20E386T.KBM400MFG.FMWODET FMWODET 
+                        WHERE(FMWODET.RTCO = " + GlobalVar.Compania + ") AND(FMWODET.WOWONO = '" + wo_numb.ToString() + "') AND FMWODET.RTWCNO = 'MSTER' " +
+                        @"UNION
+                        SELECT 0 AS NE, 0 AS ES, 1 AS PG
+                        FROM B20E386T.KBM400MFG.FMWODET FMWODET 
+                        WHERE(FMWODET.RTCO = " + GlobalVar.Compania + ") AND(FMWODET.WOWONO = '" + wo_numb.ToString() + "') AND FMWODET.RTWCNO = 'MXPGB' )";
+                        comando = new OdbcCommand(sql2, conexion);
+                        reader = null;
+                        lblcmp.Visible = false;
+                        try
+                        {
+                            int iNE = 0, iES = 0, iPG = 0;
+                            groupBox1.BackColor = Color.Transparent;
+                            conexion.Open();
+                            reader = comando.ExecuteReader();
+                            if (reader.Read())
+                            {
+
+                                iNE = Convert.ToInt32(reader["NE"]);              // no esteril - [verde]
+                                iES = Convert.ToInt32(reader["ES"]);              // esteril    - [amarillo]
+                                iPG = Convert.ToInt32(reader["PG"]);              // PGBACK     - [rosa]
+
+                                if (iNE == 1)
+                                    groupBox1.BackColor = Color.FromArgb(86, 246, 36);
+
+                                if (iES == 1)
+                                    groupBox1.BackColor = Color.FromArgb(232, 244, 33);
+
+                                if (iPG == 1)
+                                    groupBox1.BackColor = Color.FromArgb(247, 141, 255);
+
+                            }
+                            conexion.Close();
+                        }
+                        catch (OdbcException ex)
+                        {
+                            MessageBox.Show(ex.ToString(), Text, MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+                            conexion.Close();
+                        }
+                    } 
                 }
-                
+
             }
         }
             
@@ -532,7 +586,6 @@ namespace WindowsFormsApplication1
                 }
             
                 txtciclo.Text = printmessage ;
-            
             
         }
 
@@ -661,19 +714,24 @@ namespace WindowsFormsApplication1
 
             localizacion  = txtlocalizacion.Text;
 
-            Consultar.InsertarRegQuiebre(7, lbllote.Text, Convert.ToInt32(wo_numb), producto, Convert.ToInt32(txttarima1.Text), Convert.ToInt32(txttarima2.Text), 0, localizacion, printmessage, txtciclo.Text, GlobalVar.nombre_user, GlobalVar.Compania);
+            Consultar.InsertarRegQuiebre(7, lbllote.Text, Convert.ToInt32(wo_numb), producto, Convert.ToInt32(txttarima1.Text), Convert.ToInt32(txttarima2.Text), 0, localizacion, printmessage, txtciclo.Text, GlobalVar.nombre_user, GlobalVar.Compania,qpc_q);
 
-                txtlocalizacion.Text = "";
-                txtlote.Text = "";
-                txttarima1 .Text = "";
-                txttarima2.Text = "";
-                lblinfo.Text = "";
-                txtciclo.Text = "";
-                lblcmp.Visible = false;
-                lbllote.Text = "Lote";
-                lbllote.Visible = false;
-                lote_lbl.Visible = false;
-                txtlote.Focus();
+            if (Consultar.M1LabelLoteCompleto(lbllote.Text))
+                MessageBox.Show("Tarimas del Lote Completadas!",Text,MessageBoxButtons.OK,MessageBoxIcon.Information);
+
+            txtlocalizacion.Text = "";
+            txtlote.Text = "";
+            txttarima1 .Text = "";
+            txttarima2.Text = "";
+            lblinfo.Text = "";
+            txtciclo.Text = "";
+            lblcmp.Visible = false;
+            lbllote.Text = "Lote";
+            lbllote.Visible = false;
+            lote_lbl.Visible = false;
+            txtlote.Focus();
+
+            groupBox1.BackColor = Color.Transparent;
 
         }
 
@@ -716,7 +774,13 @@ namespace WindowsFormsApplication1
         }
         private void button2_Click(object sender, EventArgs e)
         {
-            if (Convert.ToInt32(txttarima1.Text) <= Convert.ToInt32(txttarima2.Text))
+            int iT1=0,iT2=0;
+            if(!int.TryParse(txttarima1.Text.ToString(),out iT1))
+                iT1 = 0;
+            if (!int.TryParse(txttarima2.Text.ToString(),out iT2))
+                iT2 = 0;
+
+            if(iT1 <= iT2)
             {
 
                 if (lbllote.Text == "Lote :" || txttarima1.Text == "" || txttarima2.Text == "" || txtciclo.Text == "" || txtlocalizacion.Text == "")
@@ -803,12 +867,15 @@ namespace WindowsFormsApplication1
                         if (duplicado == "N")
                         {
                             //valida as400 Operacion 30 [v1.0.0.3]
-                            if(txttarima1.Text == txttarima2.Text)
+                            int iCantAct = int.Parse(txttarima1.Text); //Consultar.M1LabelLoteTarima(txtlote.Text);
+                            int iCantTotal = int.Parse(txttarima2.Text);
+                            //iCantAct++;
+                            if (iCantAct == iCantTotal)
                             {
-                                if(valida_op30())
+                                if(valida_op40())
                                     revisar_destino((object)sender, (EventArgs)e);
                                 else
-                                    MessageBox.Show("Lote sin transacción 30 en as400 ", "Imposible registrar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    MessageBox.Show("Lote sin transacción 40 en as400 ", "Imposible registrar", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
                             else
                             {
@@ -836,7 +903,7 @@ namespace WindowsFormsApplication1
                 }
             }
 
-    }
+        }
 
         private void txtciclo_KeyPress(object sender, KeyPressEventArgs e)
         {

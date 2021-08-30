@@ -55,6 +55,7 @@ namespace WindowsFormsApplication1
                  if (Consultar.M1LabelLoteDetenido(lote) == true)
                  {
                      cargar1 = "N";
+                     cargar1 = "N";
                  }
                  else
             {
